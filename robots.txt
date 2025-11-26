@@ -1,6 +1,4 @@
-
 User-agent: *
 Allow: /
-Disallow: /admin/
 
-Sitemap: https://yourusername.github.io/beam-earn/sitemap.xml
+Sitemap: https://beamearn-hub.github.io/Beam_earn-/sitemap.xml

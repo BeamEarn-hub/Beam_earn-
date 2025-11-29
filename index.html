@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="Re_nlOpVbIe3AaJ9N3f9Fl-mC6yADbPzzcabqx7WZEo" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beam Earn - Earn Money Daily</title>
@@ -12,9 +11,6 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#7E57C2">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Google Site Verification -->
-    <meta name="google-site-verification" content="Re_nlOpVbIe3AaJ9N3f9Fl-mC6yADbPzzcabqx7WZEo" />
     
     <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
@@ -628,6 +624,46 @@
             font-size: 1rem;
         }
 
+        /* Telegram Banner */
+        .telegram-banner {
+            background: linear-gradient(135deg, #0088cc, #34B7F1);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
+        }
+
+        .telegram-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .telegram-icon {
+            font-size: 1.8rem;
+        }
+
+        .telegram-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .telegram-arrow {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
         /* PWA Install Prompt */
         .install-prompt {
             position: fixed;
@@ -779,6 +815,21 @@
                 padding: 0.7rem 0.9rem;
             }
             
+            .telegram-banner {
+                padding: 1rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .telegram-content {
+                justify-content: center;
+            }
+            
+            .telegram-text {
+                font-size: 1rem;
+            }
+            
             @keyframes scrollWithdraws {
                 0% { transform: translateX(0); }
                 100% { transform: translateX(calc(-160px * 25)); }
@@ -807,6 +858,14 @@
             
             .withdraw-amount {
                 font-size: 0.9rem;
+            }
+            
+            .telegram-text {
+                font-size: 0.95rem;
+            }
+            
+            .telegram-icon {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -856,6 +915,15 @@
 
         <!-- Dashboard -->
         <section id="dashboard">
+            <!-- Telegram Banner -->
+            <a href="https://t.me/beamearn" target="_blank" class="telegram-banner">
+                <div class="telegram-content">
+                    <div class="telegram-icon">📢</div>
+                    <div class="telegram-text">Join our Telegram Community</div>
+                </div>
+                <div class="telegram-arrow">→</div>
+            </a>
+
             <!-- Register Button on Dashboard -->
             <div id="registerPrompt" class="card text-center hidden">
                 <h2 style="color: var(--primary); margin-bottom: 1rem;">Start Earning Today! 🚀</h2>
@@ -968,7 +1036,7 @@
                         </div>
                         <p>💵 Investment: 40,000 UGX</p>
                         <p>📋 4 questions daily</p>
-                        <p>📈 Unlimited duration</p>
+                        <p>⏰ Duration: 335 days</p>
                         <button class="btn btn-primary" id="upgradeS1Btn">Upgrade to S1</button>
                     </div>
 
@@ -981,7 +1049,7 @@
                         </div>
                         <p>💵 Investment: 200,000 UGX</p>
                         <p>📋 8 questions daily</p>
-                        <p>🚀 Higher earnings</p>
+                        <p>⏰ Duration: 335 days</p>
                         <button class="btn btn-warning" id="upgradeS2Btn">Upgrade to S2</button>
                     </div>
 
@@ -994,8 +1062,21 @@
                         </div>
                         <p>💵 Investment: 500,000 UGX</p>
                         <p>📋 12 questions daily</p>
-                        <p>💎 Premium level</p>
+                        <p>⏰ Duration: 335 days</p>
                         <button class="btn btn-danger" id="upgradeS3Btn">Upgrade to S3</button>
+                    </div>
+
+                    <!-- S4 Level -->
+                    <div class="level-card premium">
+                        <div class="level-badge">S4</div>
+                        <h3>Platinum Level</h3>
+                        <div style="color: var(--primary); font-size: 1.3rem; font-weight: bold; margin: 1rem 0;">
+                            💰 19,416 UGX/day
+                        </div>
+                        <p>💵 Investment: 1,000,000 UGX</p>
+                        <p>📋 16 questions daily</p>
+                        <p>⏰ Duration: 335 days</p>
+                        <button class="btn btn-primary" id="upgradeS4Btn">Upgrade to S4</button>
                     </div>
                 </div>
             </div>
@@ -1325,6 +1406,9 @@
             });
             document.getElementById('upgradeS3Btn').addEventListener('click', function() {
                 showDepositModal('S3', 500000);
+            });
+            document.getElementById('upgradeS4Btn').addEventListener('click', function() {
+                showDepositModal('S4', 1000000);
             });
 
             // Bonus and referral
@@ -2091,6 +2175,7 @@
                 case 'S1': dailyLimit = 4; break;
                 case 'S2': dailyLimit = 8; break;
                 case 'S3': dailyLimit = 12; break;
+                case 'S4': dailyLimit = 16; break;
             }
             
             // Update status display
@@ -2219,6 +2304,7 @@
                 case 'S1': return 347; // 1388 UGX / 4 questions
                 case 'S2': return 602; // 4816 UGX / 8 questions
                 case 'S3': return 809; // 9708 UGX / 12 questions
+                case 'S4': return 1213; // 19416 UGX / 16 questions
                 default: return 500;
             }
         }

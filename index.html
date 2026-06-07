@@ -5,37 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beam Earn - Earn Money Daily</title>
     
-    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- Theme Color -->
     <meta name="theme-color" content="#7E57C2">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180x180.png">
     <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-167x167.png">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="icons/icon-192x192.png">
     
-    <!-- Apple Splash Screen Images (optional but recommended) -->
     <link rel="apple-touch-startup-image" href="splash/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
     <link rel="apple-touch-startup-image" href="splash/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
     <link rel="apple-touch-startup-image" href="splash/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
     <link rel="apple-touch-startup-image" href="splash/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
-    <link rel="apple-touch-startup-image" href="splash/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link class="apple-touch-startup-image" href="splash/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
     
-    <!-- Meta tags for PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Beam Earn">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="msapplication-TileColor" content="#7E57C2">
     <meta name="msapplication-config" content="browserconfig.xml">
     
-    <!-- Add Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
@@ -201,7 +194,6 @@
             background: var(--white);
             border: 3px solid var(--light);
             border-radius: 15px;
-            padding: 1.5rem;
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
@@ -624,9 +616,9 @@
             font-size: 1rem;
         }
 
-        /* Telegram Banner */
-        .telegram-banner {
-            background: linear-gradient(135deg, #0088cc, #34B7F1);
+        /* WhatsApp Banner Style Updates */
+        .whatsapp-banner {
+            background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 15px;
@@ -634,32 +626,32 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
             text-decoration: none;
             transition: all 0.3s ease;
         }
 
-        .telegram-banner:hover {
+        .whatsapp-banner:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
         }
 
-        .telegram-content {
+        .whatsapp-content {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .telegram-icon {
+        .whatsapp-icon {
             font-size: 1.8rem;
         }
 
-        .telegram-text {
+        .whatsapp-text {
             font-weight: 600;
             font-size: 1.1rem;
         }
 
-        .telegram-arrow {
+        .whatsapp-arrow {
             font-size: 1.5rem;
             opacity: 0.8;
         }
@@ -815,18 +807,18 @@
                 padding: 0.7rem 0.9rem;
             }
             
-            .telegram-banner {
+            .whatsapp-banner {
                 padding: 1rem;
                 flex-direction: column;
                 text-align: center;
                 gap: 10px;
             }
             
-            .telegram-content {
+            .whatsapp-content {
                 justify-content: center;
             }
             
-            .telegram-text {
+            .whatsapp-text {
                 font-size: 1rem;
             }
             
@@ -860,23 +852,21 @@
                 font-size: 0.9rem;
             }
             
-            .telegram-text {
+            .whatsapp-text {
                 font-size: 0.95rem;
             }
             
-            .telegram-icon {
+            .whatsapp-icon {
                 font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Offline Indicator -->
     <div class="offline-indicator" id="offlineIndicator">
         ⚠️ You are currently offline
     </div>
 
-    <!-- PWA Install Prompt -->
     <div class="install-prompt" id="installPrompt">
         <h4>📱 Install Beam Earn</h4>
         <p>Install our app for better experience</p>
@@ -886,12 +876,10 @@
         </div>
     </div>
 
-    <!-- App Installed Message -->
     <div class="app-installed-message" id="appInstalledMessage">
         🎉 Beam Earn installed successfully!
     </div>
 
-    <!-- Header -->
     <header class="header">
         <div class="nav">
             <div class="logo">🚀 Beam Earn</div>
@@ -901,30 +889,24 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="main">
-        <!-- Recent Withdraws Section - NOW AT THE TOP -->
         <section class="card">
             <h2 style="color: var(--primary); text-align: center; margin-bottom: 1rem;">Recent Withdraws</h2>
             <div class="withdraws-container">
                 <div class="withdraws-scroll" id="withdrawsScroll">
-                    <!-- Withdraw boxes will be generated here -->
-                </div>
+                    </div>
             </div>
         </section>
 
-        <!-- Dashboard -->
         <section id="dashboard">
-            <!-- Telegram Banner -->
-            <a href="https://t.me/beamearn" target="_blank" class="telegram-banner">
-                <div class="telegram-content">
-                    <div class="telegram-icon">📢</div>
-                    <div class="telegram-text">Join our Telegram Community</div>
+            <a href="https://whatsapp.com/channel/0029Vb8fvl0CnA7o8EohIs2x" target="_blank" class="whatsapp-banner">
+                <div class="whatsapp-content">
+                    <div class="whatsapp-icon">💬</div>
+                    <div class="whatsapp-text">Join our WhatsApp Channel</div>
                 </div>
-                <div class="telegram-arrow">→</div>
+                <div class="whatsapp-arrow">→</div>
             </a>
 
-            <!-- Register Button on Dashboard -->
             <div id="registerPrompt" class="card text-center hidden">
                 <h2 style="color: var(--primary); margin-bottom: 1rem;">Start Earning Today! 🚀</h2>
                 <p style="font-size: 1.1rem; color: var(--dark); margin-bottom: 1.5rem;">Create your account and begin your earning journey</p>
@@ -934,7 +916,6 @@
                 <p style="margin-top: 1rem; color: #666;">Already have an account? <a href="#" id="loginDashboardLink" style="color: var(--primary); font-weight: bold;">Login here</a></p>
             </div>
 
-            <!-- Daily Bonus Section -->
             <div id="dailyBonusSection" class="daily-bonus-section hidden">
                 <h2>🎁 Daily Login Bonus!</h2>
                 <div class="bonus-amount">25 UGX</div>
@@ -945,20 +926,17 @@
                 <div id="bonusStatus" style="margin-top: 1rem; font-size: 0.9rem;"></div>
             </div>
 
-            <!-- Welcome Banner -->
             <div class="card text-center">
                 <h1 style="color: var(--primary); margin-bottom: 1rem;">Welcome to Beam Earn! 💫</h1>
                 <p style="font-size: 1.2rem; color: var(--dark);">Start earning real money today - No experience needed!</p>
             </div>
 
-            <!-- Countdown Timer for Intern -->
             <div id="internCountdown" class="countdown-timer hidden">
                 <h3>⏳ Intern Period Ends In:</h3>
                 <div id="countdownDisplay" style="font-size: 1.5rem;">2 days 00:00:00</div>
                 <p>Upgrade to continue earning after your intern period!</p>
             </div>
 
-            <!-- User Stats -->
             <div id="userStats" class="hidden">
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -984,7 +962,6 @@
                 </div>
             </div>
 
-            <!-- Referral Section -->
             <div id="referralSection" class="referral-section hidden">
                 <h3>👥 Your Referral Code</h3>
                 <div class="referral-code" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; margin: 1rem 0;" id="userReferralCode">LOADING...</div>
@@ -993,14 +970,12 @@
                 <button class="btn btn-warning" id="shareReferralBtn">📤 Share Referral Code</button>
             </div>
 
-            <!-- Tax Notice -->
             <div class="tax-notice">
                 <h4>⚠️ Withdrawal Tax Information</h4>
                 <p><strong>1,000 UGX tax</strong> will be deducted for every <strong>5,000 UGX</strong> withdrawn</p>
                 <p><em>Example: Withdraw 5,000 UGX → Receive 4,000 UGX</em></p>
             </div>
 
-            <!-- Quick Actions -->
             <div class="card">
                 <h3 style="color: var(--primary); margin-bottom: 1rem;">Quick Actions</h3>
                 <button class="btn btn-primary mb-1" id="showTasksBtn">📋 Answer Questions</button>
@@ -1009,12 +984,10 @@
             </div>
         </section>
 
-        <!-- VIP Section -->
         <section id="vip" class="hidden">
             <div class="card">
                 <h2 style="color: var(--primary); text-align: center; margin-bottom: 1.5rem;">🌟 Investment Levels</h2>
                 <div class="level-grid">
-                    <!-- Intern Level -->
                     <div class="level-card">
                         <div class="level-badge free">FREE</div>
                         <h3>Intern Level</h3>
@@ -1027,7 +1000,6 @@
                         <button class="btn btn-success" id="activateInternBtn">Start FREE Trial</button>
                     </div>
 
-                    <!-- S1 Level -->
                     <div class="level-card premium">
                         <div class="level-badge">S1</div>
                         <h3>Silver Level</h3>
@@ -1040,7 +1012,6 @@
                         <button class="btn btn-primary" id="upgradeS1Btn">Upgrade to S1</button>
                     </div>
 
-                    <!-- S2 Level -->
                     <div class="level-card premium">
                         <div class="level-badge">S2</div>
                         <h3>Gold Level</h3>
@@ -1053,7 +1024,6 @@
                         <button class="btn btn-warning" id="upgradeS2Btn">Upgrade to S2</button>
                     </div>
 
-                    <!-- S3 Level -->
                     <div class="level-card premium">
                         <div class="level-badge">S3</div>
                         <h3>Diamond Level</h3>
@@ -1066,7 +1036,6 @@
                         <button class="btn btn-danger" id="upgradeS3Btn">Upgrade to S3</button>
                     </div>
 
-                    <!-- S4 Level -->
                     <div class="level-card premium">
                         <div class="level-badge">S4</div>
                         <h3>Platinum Level</h3>
@@ -1082,28 +1051,23 @@
             </div>
         </section>
 
-        <!-- Tasks Section -->
         <section id="tasks" class="hidden">
             <div class="card">
                 <h2 style="color: var(--primary); text-align: center;">📋 Daily Questions</h2>
                 <p class="text-center">Answer your daily questions to earn money</p>
                 
                 <div id="dailyTaskStatus" class="task-progress">
-                    <!-- Task progress will be shown here -->
-                </div>
+                    </div>
                 
                 <div id="tasksContainer">
-                    <!-- Questions will be loaded here -->
-                </div>
+                    </div>
             </div>
         </section>
 
-        <!-- Wallet Section -->
         <section id="wallet" class="hidden">
             <div class="card">
                 <h2 style="color: var(--primary); text-align: center;">💰 My Wallet</h2>
                 
-                <!-- Balance Overview -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-label">Available Balance</div>
@@ -1117,7 +1081,6 @@
                     </div>
                 </div>
 
-                <!-- Withdrawal Section -->
                 <div class="card" style="background: var(--light);">
                     <h3>💸 Withdraw Funds</h3>
                     <p>Withdrawal hours: 9:00 AM - 10:00 PM</p>
@@ -1138,7 +1101,6 @@
                     <button class="btn btn-success" id="withdrawBtn">Request Withdrawal</button>
                 </div>
 
-                <!-- Transaction History -->
                 <div class="mt-2">
                     <h3>📊 Transaction History</h3>
                     <div id="transactionList">
@@ -1148,20 +1110,19 @@
             </div>
         </section>
 
-        <!-- Support Section -->
         <section id="support" class="hidden">
             <div class="support-section">
                 <h2>🛟 Need Help?</h2>
                 <p>Our support team is here to assist you 24/7</p>
                 
                 <div class="support-contact">
-                    💬 Telegram: @Beam_earn
+                    💬 WhatsApp Channel Updates
                 </div>
                 
                 <p>⏰ Response time: Within 2 hours</p>
                 
                 <button class="btn btn-warning" id="openSupportTelegramBtn" style="margin-top: 1rem;">
-                    ✈️ Message Support Bot
+                    💬 Open WhatsApp Channel
                 </button>
             </div>
 
@@ -1181,7 +1142,6 @@
         </section>
     </main>
 
-    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <a class="nav-item active" id="navDashboard">
             <span>🏠</span>
@@ -1205,7 +1165,6 @@
         </a>
     </nav>
 
-    <!-- Auth Modal -->
     <div id="authModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeAuthModal">&times;</span>
@@ -1213,7 +1172,6 @@
         </div>
     </div>
 
-    <!-- Deposit Modal -->
     <div id="depositModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeDepositModal">&times;</span>
@@ -2004,7 +1962,7 @@
                 </div>
                 
                 <div class="text-center mt-2">
-                    <button class="btn btn-warning" id="supportHelpBtn" style="font-size: 0.9rem;">📞 Need Help? Contact Support</button>
+                    <button class="btn btn-warning" id="supportHelpBtn" style="font-size: 0.9rem;">💬 Need Help? Open WhatsApp Channel</button>
                 </div>
             `;
             
@@ -2434,7 +2392,7 @@
         }
 
         function openSupportTelegram() {
-            window.open('https://t.me/Beam_earn_bot', '_blank');
+            window.open('https://whatsapp.com/channel/0029Vb8fvl0CnA7o8EohIs2x', '_blank');
         }
 
         async function sendSupportMessage() {
@@ -2612,7 +2570,7 @@
                 { id: '94', question: 'Is steam gas?', options: ['Yes', 'No'] },
                 { id: '95', question: 'Which is a building?', options: ['School', 'Car'] },
                 { id: '96', question: 'How many seconds in 2 minutes?', options: ['120', '60'] },
-                { id: '97', question: 'What is 11 × 11?', options: ['121', '22'] },
+                { id: '97', version: 'What is 11 × 11?', options: ['121', '22'] },
                 { id: '98', question: 'Is metal conductive?', options: ['Yes', 'No'] },
                 { id: '99', question: 'Which is a mountain?', options: ['Everest', 'Amazon'] },
                 { id: '100', question: 'How many hours in 3 days?', options: ['72', '24'] }

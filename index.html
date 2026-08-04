@@ -918,10 +918,10 @@
 
             <div id="dailyBonusSection" class="daily-bonus-section hidden">
                 <h2>🎁 Daily Login Bonus!</h2>
-                <div class="bonus-amount">25 UGX</div>
+                <div class="bonus-amount">500 UGX</div>
                 <p>Login every day to claim your bonus!</p>
                 <button id="claimBonusBtn" class="btn btn-success" style="background: white; color: #FF6B00; font-weight: bold;">
-                    🎯 Claim Your 25 UGX!
+                    🎯 Claim Your 500 UGX!
                 </button>
                 <div id="bonusStatus" style="margin-top: 1rem; font-size: 0.9rem;"></div>
             </div>
@@ -1042,7 +1042,7 @@
                         <div style="color: var(--primary); font-size: 1.3rem; font-weight: bold; margin: 1rem 0;">
                             💰 19,416 UGX/day
                         </div>
-                        <p>💵 Investment: 300,000 UGX</p>
+                        <p>💵 Investment: 350,000 UGX</p>
                         <p>📋 16 questions daily</p>
                         <p>⏰ Duration: 335 days</p>
                         <button class="btn btn-primary" id="upgradeS4Btn">Upgrade to S4</button>
@@ -1084,7 +1084,7 @@
                 <div class="card" style="background: var(--light);">
                     <h3>💸 Withdraw Funds</h3>
                     <p>Withdrawal hours: 9:00 AM - 10:00 PM</p>
-                    <p>Minimum: 50,000 UGX | Maximum: 500,000 UGX per day</p>
+                    <p>Minimum: 50,000 UGX | Maximum: 5,000,000 UGX per day</p>
                     
                     <div class="input-group">
                         <input type="number" id="withdrawAmount" class="input" placeholder="Enter amount (50,000 - 500,000 UGX)" min="50000" max="500000">
@@ -2064,7 +2064,7 @@
                 const transactionData = {
                     userId: currentUser.uid,
                     type: 'bonus',
-                    amount: 25,
+                    amount: 500,
                     description: 'Daily login bonus',
                     date: new Date().toISOString(),
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -2076,7 +2076,7 @@
                 userData.totalEarned = newTotalEarned;
                 userData.lastBonusClaim = today;
                 
-                alert('🎉 Daily bonus claimed! 25 UGX added to your balance!');
+                alert('🎉 Daily bonus claimed! 500UGX added to your balance!');
                 updateUIForLoggedInUser();
             } catch (error) {
                 console.error('Error claiming bonus:', error);

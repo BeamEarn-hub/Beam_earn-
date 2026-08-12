@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beam Earn - Earn Money Daily</title>
+    <title>Beam Earn – Financial Dashboard</title>
     
     <link rel="manifest" href="manifest.json">
     
-    <meta name="theme-color" content="#7E57C2">
+    <meta name="theme-color" content="#2563EB">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
@@ -17,34 +17,25 @@
     
     <link rel="icon" type="image/png" href="icons/icon-192x192.png">
     
-    <link rel="apple-touch-startup-image" href="splash/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="splash/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="splash/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
-    <link rel="apple-touch-startup-image" href="splash/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
-    <link class="apple-touch-startup-image" href="splash/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Beam Earn">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="msapplication-TileColor" content="#7E57C2">
-    <meta name="msapplication-config" content="browserconfig.xml">
-    
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     
     <style>
         :root {
-            --primary: #7E57C2;
-            --primary-dark: #5E35B1;
-            --secondary: #FF4081;
-            --accent: #00E5FF;
-            --success: #00C853;
-            --warning: #FF9100;
-            --danger: #FF1744;
-            --dark: #1A237E;
-            --light: #E8EAF6;
-            --white: #FFFFFF;
+            --bg-dark: #090c15;
+            --card-bg: #111625;
+            --card-border: #1e293b;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #ec4899;
+            --accent: #38bdf8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --white: #ffffff;
         }
 
         * {
@@ -54,12 +45,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.4;
             min-height: 100vh;
-            /* Add padding for standalone mode */
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
             padding-left: env(safe-area-inset-left);
@@ -67,16 +57,16 @@
         }
 
         .header {
-            background: var(--white);
-            padding: 1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: rgba(9, 12, 21, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 1rem;
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            /* Safe area for notch devices */
-            padding-top: calc(1rem + env(safe-area-inset-top));
-            height: calc(80px + env(safe-area-inset-top));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: calc(0.6rem + env(safe-area-inset-top));
+            height: calc(60px + env(safe-area-inset-top));
         }
 
         .nav {
@@ -87,164 +77,334 @@
             margin: 0 auto;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(37, 99, 235, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.7); }
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.5px;
         }
 
         .main {
-            margin-top: 80px;
-            padding: 1rem;
+            margin-top: calc(60px + env(safe-area-inset-top));
+            padding: 0.75rem;
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
-            padding-bottom: 80px;
-            /* Adjust for safe areas */
-            margin-top: calc(80px + env(safe-area-inset-top));
             padding-bottom: calc(80px + env(safe-area-inset-bottom));
         }
 
+        /* THINNER CARD LAYOUTS */
         .card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--card-border);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .btn {
-            padding: 15px 25px;
+            padding: 10px 16px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.15s ease, background 0.2s ease;
             text-align: center;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            margin: 0.5rem 0;
+            margin: 0.35rem 0;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            background: var(--primary);
             color: var(--white);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.4);
+            background: var(--primary-hover);
         }
 
         .btn-success {
-            background: linear-gradient(45deg, var(--success), #00E676);
+            background: var(--success);
             color: var(--white);
         }
 
         .btn-warning {
-            background: linear-gradient(45deg, var(--warning), #FF6D00);
-            color: var(--white);
+            background: var(--warning);
+            color: #111827;
         }
 
         .btn-danger {
-            background: linear-gradient(45deg, var(--danger), #D50000);
+            background: var(--danger);
             color: var(--white);
+        }
+
+        .action-btn {
+            background: #161e31;
+            border: 1px solid #232e48;
+            border-radius: 10px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--white);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .action-btn:hover {
+            background: #1c273e;
+            transform: translateX(3px);
+            border-color: var(--primary);
+        }
+
+        .action-btn-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-icon {
+            width: 32px;
+            height: 32px;
+            background: #101726;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .action-arrow {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 8px;
+            margin-top: 12px;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
+            gap: 0.6rem;
+            margin: 0.75rem 0;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: #161e31;
+            border: 1px solid #232e48;
             color: var(--white);
-            padding: 1.5rem;
-            border-radius: 15px;
+            padding: 0.75rem 0.5rem;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .stat-amount {
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            margin: 0.5rem 0;
+            margin: 0.2rem 0;
+            color: var(--accent);
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            font-size: 0.75rem;
+            color: var(--text-muted);
         }
 
+        /* INVESTMENT PORTFOLIOS */
         .level-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
         }
 
         .level-card {
-            background: var(--white);
-            border: 3px solid var(--light);
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
+            background: #111625;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 1.1rem;
             position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
         .level-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #334155;
+            transform: translateY(-2px);
         }
 
         .level-card.premium {
-            border-color: var(--secondary);
-            background: linear-gradient(135deg, #FFF, #FFEBEE);
+            background: linear-gradient(180deg, #131b2e 0%, #0f1422 100%);
+            border: 1px solid #2563eb;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .level-title-group h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.3px;
+        }
+
+        .level-title-group .tier-code {
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .level-badge {
-            background: var(--secondary);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+            background: rgba(37, 99, 235, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
         }
 
         .level-badge.free {
-            background: var(--success);
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .financial-metric-box {
+            background: #090d16;
+            border: 1px solid #1a2336;
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 0.85rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 0;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .metric-value-primary {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        .metric-value-secondary {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .level-features {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .level-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+        }
+
+        .level-features svg {
+            width: 14px;
+            height: 14px;
+            fill: #38bdf8;
+            flex-shrink: 0;
         }
 
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.85rem;
         }
 
         .input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #E1E1E1;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            padding: 10px 12px;
+            background: #0d121f;
+            border: 1px solid #1f2a44;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--white);
+            transition: border-color 0.2s ease;
         }
 
         .input:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(126, 87, 194, 0.1);
         }
 
         .modal {
@@ -254,208 +414,254 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.85);
             z-index: 2000;
             padding: 1rem;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             overflow-y: auto;
         }
 
         .modal-content {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.25rem;
             margin: 5% auto;
-            max-width: 500px;
+            max-width: 480px;
             position: relative;
+            border: 1px solid var(--card-border);
             animation: slideUp 0.3s ease;
         }
 
         @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
+            from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
         .close {
             position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-size: 2rem;
+            top: 0.75rem;
+            right: 1rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            color: var(--dark);
+            color: var(--text-muted);
         }
 
         .payment-method-tabs {
             display: flex;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 8px;
+            margin: 12px 0;
         }
         
         .payment-tab {
             flex: 1;
-            padding: 12px;
-            border: 2px solid #7E57C2;
-            border-radius: 10px;
-            background: white;
+            padding: 10px;
+            border: 1px solid #1f2a44;
+            border-radius: 8px;
+            background: #0d121f;
             cursor: pointer;
             text-align: center;
             font-weight: bold;
-            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
         
         .payment-tab.active {
-            background: #7E57C2;
+            background: var(--primary);
             color: white;
+            border-color: var(--primary);
         }
         
         .payment-instructions {
             display: none;
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid #2c5aa0;
+            background: #0d121f;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 12px 0;
+            border: 1px solid #1f2a44;
         }
         
         .payment-instructions.active {
             display: block;
         }
-        
-        .paid-button-container {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #eee;
-        }
 
         .merchant-code-display {
-            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-            border: 3px solid #ffc107;
-            padding: 15px;
-            border-radius: 12px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning);
+            padding: 10px;
+            border-radius: 10px;
             text-align: center;
-            margin: 15px 0;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+            margin: 10px 0;
         }
 
         .merchant-code-title {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: #856404;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            color: var(--warning);
+            font-weight: 600;
         }
 
         .merchant-code-value {
-            color: #d63031;
-            font-size: 32px;
+            color: #fbbf24;
+            font-size: 22px;
             font-weight: bold;
-            letter-spacing: 3px;
-            margin: 10px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            background: white;
-            padding: 12px;
-            border-radius: 10px;
-            border: 2px dashed #d63031;
+            letter-spacing: 2px;
+            margin: 6px 0;
+            background: #0d121f;
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px dashed var(--warning);
             word-break: break-all;
         }
 
         .payment-step {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 10px;
-            padding: 8px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
+            margin-bottom: 8px;
+            padding: 6px;
+            background: #161e31;
+            border-radius: 6px;
         }
 
         .step-number {
             background: var(--primary);
             color: white;
-            width: 28px;
-            height: 28px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin-right: 12px;
+            margin-right: 10px;
             flex-shrink: 0;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
         }
 
         .step-text {
             flex: 1;
-            font-size: 0.95rem;
-            line-height: 1.4;
+            font-size: 0.8rem;
+            color: var(--text-main);
         }
 
         .step-highlight {
-            color: #d63031;
+            color: var(--warning);
             font-weight: bold;
-            background: #ffeaa7;
-            padding: 2px 6px;
-            border-radius: 4px;
         }
 
+        /* RE-STYLED CONTACT & SUPPORT SECTION */
         .support-section {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
+            background: linear-gradient(135deg, #0d1527 0%, #172238 100%);
             color: white;
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 1.25rem;
+            border-radius: 14px;
             text-align: center;
-            margin: 2rem 0;
+            margin: 0.75rem 0;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .support-contact {
-            font-size: 1.2rem;
+            font-size: 0.95rem;
             font-weight: bold;
-            margin: 1rem 0;
-            background: rgba(255,255,255,0.2);
-            padding: 1rem;
-            border-radius: 15px;
-            display: inline-block;
+            margin: 0.75rem 0;
+            background: rgba(255,255,255,0.05);
+            padding: 0.75rem;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
+        /* RE-MATCHED DAILY BONUS SECTION STYLE */
         .daily-bonus-section {
-            background: linear-gradient(135deg, #FFD700, #FF6B00);
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
             text-align: center;
-            margin: 1.5rem 0;
-            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+            margin: 0.75rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        }
+
+        .daily-bonus-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 60%);
+            animation: rotateGlow 10s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .bonus-amount {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 1rem 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0.2rem 0;
+            color: #38bdf8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
         }
 
         .referral-section {
-            background: linear-gradient(135deg, var(--success), #00C853);
+            background: #101726;
+            border: 1px solid var(--card-border);
             color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            margin: 0.75rem 0;
         }
 
         .tax-notice {
-            background: var(--light);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            border-left: 4px solid var(--warning);
+            background: #14110c;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            margin: 0.75rem 0;
+            border: 1px solid #33210c;
+        }
+
+        .tax-notice-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #f59e0b;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .tax-notice-text {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .tax-notice-example {
+            background: #0d0a06;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-size: 0.8rem;
+            border: 1px solid #23160a;
         }
 
         .countdown-timer {
-            background: linear-gradient(45deg, var(--warning), var(--secondary));
+            background: #161e31;
+            border: 1px solid #232e48;
             color: white;
-            padding: 1rem;
-            border-radius: 15px;
+            padding: 0.75rem;
+            border-radius: 10px;
             text-align: center;
-            margin: 1rem 0;
+            margin: 0.75rem 0;
             font-weight: bold;
         }
 
@@ -464,92 +670,110 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: var(--white);
+            background: rgba(9, 12, 21, 0.95);
+            backdrop-filter: blur(12px);
             display: flex;
-            padding: 0.8rem;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            padding: 0.4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             z-index: 1000;
-            /* Safe area for home indicator */
-            padding-bottom: calc(0.8rem + env(safe-area-inset-bottom));
+            padding-bottom: calc(0.4rem + env(safe-area-inset-bottom));
         }
 
         .nav-item {
             flex: 1;
             text-align: center;
-            padding: 0.5rem;
-            color: var(--dark);
+            padding: 0.15rem;
+            color: #64748b;
             text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
+            font-size: 0.7rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-item:active {
+            transform: scale(0.92);
         }
 
         .nav-item.active {
             color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .nav-item i {
-            display: block;
-            font-size: 1.5rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .question-card {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid var(--primary);
-        }
-
-        .question-text {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
             font-weight: 600;
         }
 
-        .options-container {
+        .nav-item-icon {
+            font-size: 1.15rem;
             display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* COMPACT QUESTION CARDS TO FIT 8 QUESTIONS */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 0.65rem 0.85rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .question-text {
+            font-size: 0.88rem;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.4rem;
+            margin-bottom: 0.2rem;
         }
 
         .option-btn {
-            padding: 12px 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 10px;
-            background: white;
+            padding: 6px 10px;
+            border: 1px solid #1f2a44;
+            border-radius: 8px;
+            background: #0d121f;
+            color: var(--text-main);
             cursor: pointer;
-            transition: all 0.3s ease;
             text-align: left;
+            font-size: 0.8rem;
+            transition: all 0.15s ease;
         }
 
         .option-btn:hover {
             border-color: var(--primary);
-            background: #f5f5f5;
+            background: #161e31;
         }
 
         .option-btn.selected {
             border-color: var(--success);
-            background: #e8f5e8;
+            background: rgba(16, 185, 129, 0.15);
+            font-weight: 600;
         }
 
         .task-progress {
-            background: var(--light);
-            padding: 1rem;
+            background: #0d121f;
+            border: 1px solid #1f2a44;
+            padding: 0.6rem;
             border-radius: 10px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.6rem;
             text-align: center;
             font-weight: bold;
+            font-size: 0.85rem;
         }
 
         .transaction-item {
             display: flex;
             justify-content: space-between;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
+            padding: 0.6rem 0.2rem;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.85rem;
         }
 
         .transaction-amount {
@@ -564,108 +788,102 @@
             color: var(--danger);
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
         .text-center { text-align: center; }
         .text-success { color: var(--success); }
         .text-danger { color: var(--danger); }
-        .mb-1 { margin-bottom: 1rem; }
-        .mb-2 { margin-bottom: 2rem; }
-        .mt-1 { margin-top: 1rem; }
-        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
 
-        /* RECENT WITHDRAWS SECTION - UPDATED */
         .withdraws-container {
             overflow: hidden;
-            padding: 1rem 0;
-            margin-bottom: 1.5rem;
+            padding: 0.2rem 0;
             position: relative;
         }
 
         .withdraws-scroll {
             display: flex;
-            gap: 12px;
-            animation: scrollWithdraws 30s linear infinite;
-            padding: 0 1rem;
+            gap: 10px;
+            animation: scrollWithdraws 35s linear infinite;
         }
 
         @keyframes scrollWithdraws {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-200px * 25)); }
+            100% { transform: translateX(calc(-160px * 25)); }
         }
 
         .withdraw-box {
-            background: white;
-            border-radius: 12px;
-            padding: 0.8rem 1rem;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            min-width: 180px;
+            background: #0d121f;
+            border: 1px solid #1f2a44;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            min-width: 150px;
             flex-shrink: 0;
             text-align: center;
         }
 
         .withdraw-phone {
-            color: #1A237E;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 0.1rem;
         }
 
         .withdraw-amount {
-            color: #4CAF50;
+            color: var(--success);
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.8rem;
         }
 
-        /* WhatsApp Banner Style Updates */
         .whatsapp-banner {
-            background: linear-gradient(135deg, #25D366, #128C7E);
+            background: linear-gradient(135deg, #059669, #10b981);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
             text-decoration: none;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            transition: transform 0.2s ease;
         }
 
-        .whatsapp-banner:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        .whatsapp-banner:active {
+            transform: scale(0.98);
         }
 
         .whatsapp-content {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .whatsapp-icon {
-            font-size: 1.8rem;
+            font-size: 1.2rem;
         }
 
         .whatsapp-text {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 0.85rem;
         }
 
         .whatsapp-arrow {
-            font-size: 1.5rem;
+            font-size: 1rem;
             opacity: 0.8;
         }
 
-        /* PWA Install Prompt */
         .install-prompt {
             position: fixed;
-            bottom: 100px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--white);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 1rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 14px;
             z-index: 2000;
             text-align: center;
             max-width: 300px;
@@ -680,17 +898,18 @@
 
         .install-prompt-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-top: 10px;
         }
 
         .install-prompt-btn {
             flex: 1;
-            padding: 10px;
+            padding: 8px;
             border: none;
-            border-radius: 10px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
+            font-size: 0.85rem;
         }
 
         .install-prompt-accept {
@@ -699,23 +918,23 @@
         }
 
         .install-prompt-dismiss {
-            background: var(--light);
-            color: var(--dark);
+            background: #161e31;
+            color: var(--text-muted);
         }
 
-        /* App Installed Message */
         .app-installed-message {
             position: fixed;
-            top: 100px;
+            top: 75px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--success);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 25px;
+            padding: 0.6rem 1.25rem;
+            border-radius: 20px;
             z-index: 2000;
             text-align: center;
             display: none;
+            font-size: 0.85rem;
         }
 
         .app-installed-message.show {
@@ -728,16 +947,17 @@
             20%, 80% { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        /* Offline Indicator */
         .offline-indicator {
             position: fixed;
-            top: 80px;
+            top: 60px;
             left: 0;
             width: 100%;
             background: var(--warning);
-            color: white;
-            padding: 10px;
+            color: #111827;
+            padding: 6px;
             text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
             z-index: 999;
             display: none;
         }
@@ -746,118 +966,13 @@
             display: block;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .level-grid {
                 grid-template-columns: 1fr;
             }
-            
             .modal-content {
-                margin: 10% 1rem;
-                padding: 1.5rem;
-                max-height: 85vh;
-                overflow-y: auto;
-            }
-            
-            .merchant-code-value {
-                font-size: 24px;
-                letter-spacing: 2px;
-                padding: 10px;
-            }
-            
-            .merchant-code-display {
-                padding: 12px;
-                margin: 10px 0;
-            }
-            
-            .merchant-code-title {
-                font-size: 1rem;
-            }
-            
-            .payment-step {
-                margin-bottom: 8px;
-                padding: 6px;
-            }
-            
-            .step-number {
-                width: 24px;
-                height: 24px;
-                margin-right: 10px;
-                font-size: 0.8rem;
-            }
-            
-            .step-text {
-                font-size: 0.9rem;
-            }
-            
-            .payment-instructions {
-                padding: 12px;
-            }
-            
-            .payment-method-tabs {
-                flex-direction: column;
-            }
-            
-            .withdraw-box {
-                min-width: 160px;
-                padding: 0.7rem 0.9rem;
-            }
-            
-            .whatsapp-banner {
+                margin: 8% 0.75rem;
                 padding: 1rem;
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .whatsapp-content {
-                justify-content: center;
-            }
-            
-            .whatsapp-text {
-                font-size: 1rem;
-            }
-            
-            @keyframes scrollWithdraws {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(calc(-160px * 25)); }
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .modal-content {
-                margin: 5% 1rem;
-                padding: 1.2rem;
-            }
-            
-            .merchant-code-value {
-                font-size: 20px;
-                letter-spacing: 1px;
-            }
-            
-            .withdraw-box {
-                min-width: 150px;
-                padding: 0.6rem 0.8rem;
-            }
-            
-            .withdraw-phone {
-                font-size: 0.85rem;
-            }
-            
-            .withdraw-amount {
-                font-size: 0.9rem;
-            }
-            
-            .whatsapp-text {
-                font-size: 0.95rem;
-            }
-            
-            .whatsapp-icon {
-                font-size: 1.5rem;
             }
         }
     </style>
@@ -869,7 +984,7 @@
 
     <div class="install-prompt" id="installPrompt">
         <h4>📱 Install Beam Earn</h4>
-        <p>Install our app for better experience</p>
+        <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 2px;">Install our app for a smoother experience</p>
         <div class="install-prompt-buttons">
             <button class="install-prompt-btn install-prompt-dismiss" id="dismissInstall">Later</button>
             <button class="install-prompt-btn install-prompt-accept" id="acceptInstall">Install</button>
@@ -882,19 +997,21 @@
 
     <header class="header">
         <div class="nav">
-            <div class="logo">🚀 Beam Earn</div>
+            <div class="logo-container">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">Beam Earn</div>
+            </div>
             <div class="nav-auth">
-                <button class="btn btn-primary" id="loginBtn" style="padding: 10px 20px; width: auto;">Login</button>
+                <button class="btn btn-primary" id="loginBtn" style="padding: 6px 14px; width: auto; margin: 0; border-radius: 6px; font-size: 0.85rem;">Login</button>
             </div>
         </div>
     </header>
 
     <main class="main">
         <section class="card">
-            <h2 style="color: var(--primary); text-align: center; margin-bottom: 1rem;">Recent Withdraws</h2>
+            <h3 style="color: var(--white); text-align: center; margin-bottom: 0.4rem; font-size: 0.9rem;">Recent Withdraws</h3>
             <div class="withdraws-container">
-                <div class="withdraws-scroll" id="withdrawsScroll">
-                    </div>
+                <div class="withdraws-scroll" id="withdrawsScroll"></div>
             </div>
         </section>
 
@@ -908,33 +1025,36 @@
             </a>
 
             <div id="registerPrompt" class="card text-center hidden">
-                <h2 style="color: var(--primary); margin-bottom: 1rem;">Start Earning Today! 🚀</h2>
-                <p style="font-size: 1.1rem; color: var(--dark); margin-bottom: 1.5rem;">Create your account and begin your earning journey</p>
-                <button class="btn btn-success" id="registerDashboardBtn" style="font-size: 1.1rem; font-weight: bold;">
+                <h2 style="color: var(--white); margin-bottom: 0.3rem; font-size: 1.1rem;">Start Earning Today! 🚀</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.85rem;">Create your account and begin your earning journey</p>
+                <button class="btn btn-success" id="registerDashboardBtn" style="font-size: 0.9rem; font-weight: bold;">
                     📝 Register Now - It's FREE!
                 </button>
-                <p style="margin-top: 1rem; color: #666;">Already have an account? <a href="#" id="loginDashboardLink" style="color: var(--primary); font-weight: bold;">Login here</a></p>
+                <p style="margin-top: 0.6rem; color: var(--text-muted); font-size: 0.8rem;">Already have an account? <a href="#" id="loginDashboardLink" style="color: var(--primary); font-weight: bold; text-decoration: none;">Login here</a></p>
             </div>
 
+            <!-- RESTYLED MATCHING BLUE/INDIGO DAILY BONUS CARD -->
             <div id="dailyBonusSection" class="daily-bonus-section hidden">
-                <h2>🎁 Daily Login Bonus!</h2>
-                <div class="bonus-amount">500 UGX</div>
-                <p>Login every day to claim your bonus!</p>
-                <button id="claimBonusBtn" class="btn btn-success" style="background: white; color: #FF6B00; font-weight: bold;">
-                    🎯 Claim Your 500 UGX!
-                </button>
-                <div id="bonusStatus" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+                <div style="position: relative; z-index: 2;">
+                    <h3 style="font-size: 1.05rem;">🎁 Daily Login Bonus</h3>
+                    <div class="bonus-amount">500 UGX</div>
+                    <p style="font-size: 0.8rem; color: #cbd5e1;">Login every day to claim your bonus!</p>
+                    <button id="claimBonusBtn" class="btn btn-primary" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.3); color: white; font-weight: bold; margin-top: 6px; padding: 8px;">
+                        🎯 Claim Your 500 UGX!
+                    </button>
+                    <div id="bonusStatus" style="margin-top: 0.3rem; font-size: 0.75rem;"></div>
+                </div>
             </div>
 
-            <div class="card text-center">
-                <h1 style="color: var(--primary); margin-bottom: 1rem;">Welcome to Beam Earn! 💫</h1>
-                <p style="font-size: 1.2rem; color: var(--dark);">Start earning real money today - No experience needed!</p>
+            <div class="card text-center" style="padding: 0.65rem 0.85rem;">
+                <h3 style="color: var(--white); margin-bottom: 0.2rem; font-size: 1rem;">Welcome to Beam Earn! 💫</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Start earning real money today - No experience needed!</p>
             </div>
 
             <div id="internCountdown" class="countdown-timer hidden">
-                <h3>⏳ Intern Period Ends In:</h3>
-                <div id="countdownDisplay" style="font-size: 1.5rem;">2 days 00:00:00</div>
-                <p>Upgrade to continue earning after your intern period!</p>
+                <h4 style="font-size: 0.85rem;">⏳ Intern Period Ends In:</h4>
+                <div id="countdownDisplay" style="font-size: 1.1rem; color: var(--warning); margin: 4px 0;">2 days 00:00:00</div>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Upgrade to continue earning after trial!</p>
             </div>
 
             <div id="userStats" class="hidden">
@@ -942,149 +1062,268 @@
                     <div class="stat-card">
                         <div class="stat-label">Available Balance</div>
                         <div class="stat-amount" id="availableBalance">0 UGX</div>
-                        <small>Ready to withdraw</small>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">Ready to withdraw</small>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">VIP Level</div>
-                        <div class="stat-amount" id="vipLevel">INTERN</div>
-                        <small>Current level</small>
+                        <div class="stat-label">Invest Level</div>
+                        <div class="stat-amount" id="vipLevel" style="color: var(--white);">INTERN</div>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">Current level</small>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Referrals</div>
-                        <div class="stat-amount" id="referralCount">0</div>
-                        <small>Total referrals</small>
+                        <div class="stat-amount" id="referralCount" style="color: var(--white);">0</div>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">Total referrals</small>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Referral Earnings</div>
                         <div class="stat-amount" id="referralEarnings">0 UGX</div>
-                        <small>From referrals</small>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">From referrals</small>
                     </div>
                 </div>
             </div>
 
             <div id="referralSection" class="referral-section hidden">
-                <h3>👥 Your Referral Code</h3>
-                <div class="referral-code" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; margin: 1rem 0;" id="userReferralCode">LOADING...</div>
-                <p>Share your code and earn <strong>5%</strong> of your referrals' earnings!</p>
-                <p>Refer <strong>50 people</strong> to automatically upgrade from Intern to S1! 🎉</p>
-                <button class="btn btn-warning" id="shareReferralBtn">📤 Share Referral Code</button>
+                <h4 style="font-size: 0.95rem;">👥 Your Referral Code</h4>
+                <div class="referral-code" style="font-size: 1.25rem; font-weight: bold; letter-spacing: 2px; margin: 0.4rem 0; color: var(--accent);" id="userReferralCode">LOADING...</div>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Share code to earn <strong>5%</strong> of referrals' earnings!</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem;">Refer <strong>50 people</strong> to auto-upgrade to S1! 🎉</p>
+                <button class="btn btn-warning" id="shareReferralBtn" style="padding: 8px;">📤 Share Referral Code</button>
             </div>
 
             <div class="tax-notice">
-                <h4>⚠️ Withdrawal Tax Information</h4>
-                <p><strong>1,000 UGX tax</strong> will be deducted for every <strong>5,000 UGX</strong> withdrawn</p>
-                <p><em>Example: Withdraw 5,000 UGX → Receive 4,000 UGX</em></p>
+                <div class="tax-notice-header">
+                    <span>ⓘ</span>
+                    <span>Withdrawal Tax Notice</span>
+                </div>
+                <div class="tax-notice-text">
+                    A standard tax rate of 1,000 UGX applies per every 5,000 UGX withdrawn.
+                </div>
+                <div class="tax-notice-example">
+                    Example: Withdraw 5,000 UGX → Receive 4,000 UGX
+                </div>
             </div>
 
-            <div class="card">
-                <h3 style="color: var(--primary); margin-bottom: 1rem;">Quick Actions</h3>
-                <button class="btn btn-primary mb-1" id="showTasksBtn">📋 Answer Questions</button>
-                <button class="btn btn-success mb-1" id="showWalletBtn">💰 Wallet & Withdraw</button>
-                <button class="btn btn-warning" id="showSupportBtn">🛟 Contact Support</button>
+            <div class="section-title">QUICK ACTIONS</div>
+            
+            <div class="action-btn" id="showTasksBtn">
+                <div class="action-btn-left">
+                    <div class="action-icon">❓</div>
+                    <span>Answer Questions</span>
+                </div>
+                <span class="action-arrow">›</span>
+            </div>
+
+            <div class="action-btn" id="showWalletBtn">
+                <div class="action-btn-left">
+                    <div class="action-icon">💳</div>
+                    <span>Wallet & Withdraw</span>
+                </div>
+                <span class="action-arrow">›</span>
+            </div>
+
+            <div class="action-btn" id="showSupportBtn">
+                <div class="action-btn-left">
+                    <div class="action-icon">🌐</div>
+                    <span>Contact Support</span>
+                </div>
+                <span class="action-arrow">›</span>
             </div>
         </section>
 
+        <!-- FINANCIAL & PROFESSIONAL INVESTMENT TIERS -->
         <section id="vip" class="hidden">
-            <div class="card">
-                <h2 style="color: var(--primary); text-align: center; margin-bottom: 1.5rem;">🌟 Investment Levels</h2>
+            <div class="card" style="background: transparent; border: none; padding: 0;">
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <h2 style="color: var(--white); font-weight: 800; letter-spacing: -0.5px; font-size: 1.2rem;">Investment Portfolios</h2>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Select a tier to activate higher daily returns</p>
+                </div>
+
                 <div class="level-grid">
+                    <!-- INTERN -->
                     <div class="level-card">
-                        <div class="level-badge free">FREE</div>
-                        <h3>Intern Level</h3>
-                        <div style="color: var(--success); font-size: 1.3rem; font-weight: bold; margin: 1rem 0;">
-                            💰 1,000 UGX/day
+                        <div class="level-header">
+                            <div class="level-title-group">
+                                <div class="tier-code">TIER 0</div>
+                                <h3>Intern Tier</h3>
+                            </div>
+                            <span class="level-badge free">TRIAL</span>
                         </div>
-                        <p>📋 2 questions daily</p>
-                        <p>⏰ 2 days only</p>
-                        <p>🎯 Perfect for beginners</p>
-                        <button class="btn btn-success" id="activateInternBtn">Start FREE Trial</button>
+                        
+                        <div class="financial-metric-box">
+                            <div class="metric-row">
+                                <span class="metric-label">Daily Yield</span>
+                                <span class="metric-value-primary">1,000 UGX</span>
+                            </div>
+                            <div class="metric-row" style="margin-top: 4px; border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 4px;">
+                                <span class="metric-label">Capital Required</span>
+                                <span class="metric-value-secondary" style="color: #10b981;">FREE</span>
+                            </div>
+                        </div>
+
+                        <ul class="level-features">
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 2 Questions Daily</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 2 Days Trial Term</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Account Evaluation</li>
+                        </ul>
+
+                        <button class="btn btn-success" id="activateInternBtn" style="border-radius: 8px; font-weight: 700;">Start Free Trial</button>
                     </div>
 
+                    <!-- SENIOR 1 -->
                     <div class="level-card premium">
-                        <div class="level-badge">S1</div>
-                        <h3>Silver Level</h3>
-                        <div style="color: var(--secondary); font-size: 1.3rem; font-weight: bold; margin: 1rem 0;">
-                            💰 1,388 UGX/day
+                        <div class="level-header">
+                            <div class="level-title-group">
+                                <div class="tier-code">TIER 1</div>
+                                <h3>Senior 1</h3>
+                            </div>
+                            <span class="level-badge">S1 PORTFOLIO</span>
                         </div>
-                        <p>💵 Investment: 50,000 UGX</p>
-                        <p>📋 4 questions daily</p>
-                        <p>⏰ Duration: 335 days</p>
-                        <button class="btn btn-primary" id="upgradeS1Btn">Upgrade to S1</button>
+
+                        <div class="financial-metric-box">
+                            <div class="metric-row">
+                                <span class="metric-label">Daily Yield</span>
+                                <span class="metric-value-primary">2,000 UGX</span>
+                            </div>
+                            <div class="metric-row" style="margin-top: 4px; border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 4px;">
+                                <span class="metric-label">Capital Investment</span>
+                                <span class="metric-value-secondary">50,000 UGX</span>
+                            </div>
+                        </div>
+
+                        <ul class="level-features">
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 4 Questions Daily</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 500 UGX / Answer</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 335 Days Term</li>
+                        </ul>
+
+                        <button class="btn btn-primary" id="upgradeS1Btn" style="border-radius: 8px; font-weight: 700;">Upgrade to S1</button>
                     </div>
 
+                    <!-- SENIOR 2 -->
                     <div class="level-card premium">
-                        <div class="level-badge">S2</div>
-                        <h3>Gold Level</h3>
-                        <div style="color: var(--warning); font-size: 1.3rem; font-weight: bold; margin: 1rem 0;">
-                            💰 4,816 UGX/day
+                        <div class="level-header">
+                            <div class="level-title-group">
+                                <div class="tier-code">TIER 2</div>
+                                <h3>Senior 2</h3>
+                            </div>
+                            <span class="level-badge" style="color: #fca5a5; border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.15);">S2 PORTFOLIO</span>
                         </div>
-                        <p>💵 Investment: 80,000 UGX</p>
-                        <p>📋 8 questions daily</p>
-                        <p>⏰ Duration: 335 days</p>
-                        <button class="btn btn-warning" id="upgradeS2Btn">Upgrade to S2</button>
+
+                        <div class="financial-metric-box">
+                            <div class="metric-row">
+                                <span class="metric-label">Daily Yield</span>
+                                <span class="metric-value-primary">4,000 UGX</span>
+                            </div>
+                            <div class="metric-row" style="margin-top: 4px; border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 4px;">
+                                <span class="metric-label">Capital Investment</span>
+                                <span class="metric-value-secondary">80,000 UGX</span>
+                            </div>
+                        </div>
+
+                        <ul class="level-features">
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 6 Questions Daily</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 666 UGX / Answer</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 335 Days Term</li>
+                        </ul>
+
+                        <button class="btn btn-primary" id="upgradeS2Btn" style="border-radius: 8px; font-weight: 700;">Upgrade to S2</button>
                     </div>
 
+                    <!-- SENIOR 3 -->
                     <div class="level-card premium">
-                        <div class="level-badge">S3</div>
-                        <h3>Diamond Level</h3>
-                        <div style="color: var(--danger); font-size: 1.3rem; font-weight: bold; margin: 1rem 0;">
-                            💰 9,708 UGX/day
+                        <div class="level-header">
+                            <div class="level-title-group">
+                                <div class="tier-code">TIER 3</div>
+                                <h3>Senior 3</h3>
+                            </div>
+                            <span class="level-badge" style="color: #fcd34d; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.15);">S3 PORTFOLIO</span>
                         </div>
-                        <p>💵 Investment: 150,000 UGX</p>
-                        <p>📋 12 questions daily</p>
-                        <p>⏰ Duration: 335 days</p>
-                        <button class="btn btn-danger" id="upgradeS3Btn">Upgrade to S3</button>
+
+                        <div class="financial-metric-box">
+                            <div class="metric-row">
+                                <span class="metric-label">Daily Yield</span>
+                                <span class="metric-value-primary">8,000 UGX</span>
+                            </div>
+                            <div class="metric-row" style="margin-top: 4px; border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 4px;">
+                                <span class="metric-label">Capital Investment</span>
+                                <span class="metric-value-secondary">150,000 UGX</span>
+                            </div>
+                        </div>
+
+                        <ul class="level-features">
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 8 Questions Daily</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 1,000 UGX / Answer</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 335 Days Term</li>
+                        </ul>
+
+                        <button class="btn btn-warning" id="upgradeS3Btn" style="border-radius: 8px; font-weight: 700;">Upgrade to S3</button>
                     </div>
 
+                    <!-- SENIOR 4 -->
                     <div class="level-card premium">
-                        <div class="level-badge">S4</div>
-                        <h3>Platinum Level</h3>
-                        <div style="color: var(--primary); font-size: 1.3rem; font-weight: bold; margin: 1rem 0;">
-                            💰 19,416 UGX/day
+                        <div class="level-header">
+                            <div class="level-title-group">
+                                <div class="tier-code">TIER 4</div>
+                                <h3>Senior 4</h3>
+                            </div>
+                            <span class="level-badge" style="color: #c084fc; border-color: rgba(168, 85, 247, 0.3); background: rgba(168, 85, 247, 0.15);">S4 PORTFOLIO</span>
                         </div>
-                        <p>💵 Investment: 350,000 UGX</p>
-                        <p>📋 16 questions daily</p>
-                        <p>⏰ Duration: 335 days</p>
-                        <button class="btn btn-primary" id="upgradeS4Btn">Upgrade to S4</button>
+
+                        <div class="financial-metric-box">
+                            <div class="metric-row">
+                                <span class="metric-label">Daily Yield</span>
+                                <span class="metric-value-primary">16,000 UGX</span>
+                            </div>
+                            <div class="metric-row" style="margin-top: 4px; border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 4px;">
+                                <span class="metric-label">Capital Investment</span>
+                                <span class="metric-value-secondary">350,000 UGX</span>
+                            </div>
+                        </div>
+
+                        <ul class="level-features">
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 12 Questions Daily</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 1,333 UGX / Answer</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 335 Days Term</li>
+                        </ul>
+
+                        <button class="btn btn-primary" id="upgradeS4Btn" style="border-radius: 8px; font-weight: 700; background: linear-gradient(135deg, #7c3aed, #2563eb);">Upgrade to S4</button>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- THINNER QUESTIONS SECTION (COMPACT FIT FOR 8 QUESTIONS) -->
         <section id="tasks" class="hidden">
-            <div class="card">
-                <h2 style="color: var(--primary); text-align: center;">📋 Daily Questions</h2>
-                <p class="text-center">Answer your daily questions to earn money</p>
+            <div class="card" style="padding: 0.75rem;">
+                <h3 style="color: var(--white); text-align: center; font-size: 1rem;">📋 Daily Questions</h3>
+                <p class="text-center" style="color: var(--text-muted); margin-bottom: 0.5rem; font-size: 0.8rem;">Answer your daily questions to earn money</p>
                 
-                <div id="dailyTaskStatus" class="task-progress">
-                    </div>
-                
-                <div id="tasksContainer">
-                    </div>
+                <div id="dailyTaskStatus" class="task-progress"></div>
+                <div id="tasksContainer"></div>
             </div>
         </section>
 
         <section id="wallet" class="hidden">
             <div class="card">
-                <h2 style="color: var(--primary); text-align: center;">💰 My Wallet</h2>
+                <h3 style="color: var(--white); text-align: center; font-size: 1.1rem; margin-bottom: 0.5rem;">💰 My Wallet</h3>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-label">Available Balance</div>
                         <div class="stat-amount" id="walletBalance">0 UGX</div>
-                        <small>Ready to withdraw</small>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">Ready to withdraw</small>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Referral Earnings</div>
                         <div class="stat-amount" id="walletReferral">0 UGX</div>
-                        <small>From referrals</small>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">From referrals</small>
                     </div>
                 </div>
 
-                <div class="card" style="background: var(--light);">
-                    <h3>💸 Withdraw Funds</h3>
-                    <p>Withdrawal hours: 9:00 AM - 10:00 PM</p>
-                    <p>Minimum: 50,000 UGX | Maximum: 5,000,000 UGX per day</p>
+                <div class="card" style="background: #0d121f; border-color: #1f2a44; margin-top: 0.5rem;">
+                    <h4 style="color: var(--white); margin-bottom: 0.3rem; font-size: 0.95rem;">💸 Withdraw Funds</h4>
+                    <p style="color: var(--text-muted); font-size: 0.75rem;">Withdrawal hours: 9:00 AM - 10:00 PM</p>
+                    <p style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 0.75rem;">Limits: 50,000 UGX – 500,000 UGX per request</p>
                     
                     <div class="input-group">
                         <input type="number" id="withdrawAmount" class="input" placeholder="Enter amount (50,000 - 500,000 UGX)" min="50000" max="500000">
@@ -1098,36 +1337,37 @@
                     <div class="input-group">
                         <input type="tel" id="withdrawPhone" class="input" placeholder="Your phone number for deposit">
                     </div>
-                    <button class="btn btn-success" id="withdrawBtn">Request Withdrawal</button>
+                    <button class="btn btn-success" id="withdrawBtn" style="padding: 10px;">Request Withdrawal</button>
                 </div>
 
-                <div class="mt-2">
-                    <h3>📊 Transaction History</h3>
+                <div class="mt-1">
+                    <h4 style="color: var(--white); margin-bottom: 0.5rem; font-size: 0.9rem;">📊 Transaction History</h4>
                     <div id="transactionList">
-                        <p class="text-center">No transactions yet</p>
+                        <p class="text-center" style="color: var(--text-muted); font-size: 0.8rem;">No transactions yet</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- IMPROVED PROFESSIONAL SUPPORT SECTION -->
         <section id="support" class="hidden">
             <div class="support-section">
-                <h2>🛟 Need Help?</h2>
-                <p>Our support team is here to assist you 24/7</p>
+                <h3 style="font-size: 1.15rem; color: var(--white); margin-bottom: 0.2rem;">🛟 Need Help?</h3>
+                <p style="color: var(--text-muted); font-size: 0.8rem;">Our support team is here to assist you 24/7</p>
                 
                 <div class="support-contact">
-                    💬 WhatsApp Channel Updates
+                    <span>💬</span> <span>WhatsApp Channel Updates</span>
                 </div>
                 
-                <p>⏰ Response time: Within 2 hours</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">⏰ Average response time: Within 2 hours</p>
                 
-                <button class="btn btn-warning" id="openSupportTelegramBtn" style="margin-top: 1rem;">
+                <button class="btn btn-warning" id="openSupportTelegramBtn" style="margin-top: 0.75rem; padding: 10px;">
                     💬 Open WhatsApp Channel
                 </button>
             </div>
 
             <div class="card">
-                <h3 style="color: var(--primary);">📞 Contact Support</h3>
+                <h3 style="color: var(--white); margin-bottom: 0.75rem; font-size: 1rem;">📞 Contact Support Directly</h3>
                 <div class="input-group">
                     <input type="text" id="supportName" class="input" placeholder="Your Name">
                 </div>
@@ -1135,32 +1375,33 @@
                     <input type="tel" id="supportPhone" class="input" placeholder="Your Phone Number">
                 </div>
                 <div class="input-group">
-                    <textarea id="supportMessage" class="input" placeholder="Describe your issue..." rows="4"></textarea>
+                    <textarea id="supportMessage" class="input" placeholder="Describe your issue..." rows="3"></textarea>
                 </div>
-                <button class="btn btn-primary" id="sendSupportBtn">Send Message</button>
+                <button class="btn btn-primary" id="sendSupportBtn" style="padding: 10px;">Send Message</button>
             </div>
         </section>
     </main>
 
+    <!-- BOTTOM NAV WITH INVEST REPLACING VIP STAR -->
     <nav class="bottom-nav">
         <a class="nav-item active" id="navDashboard">
-            <span>🏠</span>
+            <div class="nav-item-icon">🏠</div>
             <span>Home</span>
         </a>
         <a class="nav-item" id="navTasks">
-            <span>📋</span>
+            <div class="nav-item-icon">📄</div>
             <span>Questions</span>
         </a>
         <a class="nav-item" id="navWallet">
-            <span>💰</span>
+            <div class="nav-item-icon">💳</div>
             <span>Wallet</span>
         </a>
         <a class="nav-item" id="navVip">
-            <span>⭐</span>
-            <span>VIP</span>
+            <div class="nav-item-icon">📈</div>
+            <span>Invest</span>
         </a>
         <a class="nav-item" id="navSupport">
-            <span>🛟</span>
+            <div class="nav-item-icon">🌐</div>
             <span>Support</span>
         </a>
     </nav>
@@ -1180,7 +1421,6 @@
     </div>
 
     <script>
-        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCMjUsZP-V_e-0VIHw5eI1hAvbI3bWsOqY",
             authDomain: "beam-earn.firebaseapp.com",
@@ -1191,17 +1431,15 @@
             appId: "1:931208618025:web:06c593ef81ec123f4abc38"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Data Management
         let currentUser = null;
         let userData = null;
         let deferredPrompt = null;
+        let referralUnsubscribe = null;
         
-        // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
             setupEventListeners();
             checkAuthStatus();
@@ -1211,27 +1449,12 @@
             setInterval(updateCountdownTimer, 1000);
         });
 
-        // PWA Setup
         function setupPWA() {
-            // Register Service Worker
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('/service-worker.js')
                         .then((registration) => {
                             console.log('Service Worker registered: ', registration);
-                            
-                            // Check for updates
-                            registration.addEventListener('updatefound', () => {
-                                const newWorker = registration.installing;
-                                console.log('New service worker found...');
-                                
-                                newWorker.addEventListener('statechange', () => {
-                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                        console.log('New content is available; please refresh.');
-                                        // You can show an update notification here
-                                    }
-                                });
-                            });
                         })
                         .catch((registrationError) => {
                             console.log('Service Worker registration failed: ', registrationError);
@@ -1239,38 +1462,27 @@
                 });
             }
 
-            // Listen for beforeinstallprompt event
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                
-                // Show install prompt after 5 seconds if not in standalone mode
                 if (!window.matchMedia('(display-mode: standalone)').matches) {
-                    setTimeout(() => {
-                        showInstallPrompt();
-                    }, 5000);
+                    setTimeout(() => { showInstallPrompt(); }, 5000);
                 }
             });
 
-            // Listen for app installed event
             window.addEventListener('appinstalled', () => {
-                console.log('Beam Earn was installed');
                 deferredPrompt = null;
                 showAppInstalledMessage();
             });
 
-            // Online/Offline detection
             window.addEventListener('online', () => {
                 document.getElementById('offlineIndicator').classList.remove('show');
-                console.log('App is online');
             });
 
             window.addEventListener('offline', () => {
                 document.getElementById('offlineIndicator').classList.add('show');
-                console.log('App is offline');
             });
 
-            // Initial online status check
             if (!navigator.onLine) {
                 document.getElementById('offlineIndicator').classList.add('show');
             }
@@ -1284,8 +1496,7 @@
                 installPrompt.classList.remove('show');
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    console.log(`User response to the install prompt: ${outcome}`);
+                    await deferredPrompt.userChoice;
                     deferredPrompt = null;
                 }
             });
@@ -1298,93 +1509,42 @@
         function showAppInstalledMessage() {
             const message = document.getElementById('appInstalledMessage');
             message.classList.add('show');
-            setTimeout(() => {
-                message.classList.remove('show');
-            }, 3000);
+            setTimeout(() => { message.classList.remove('show'); }, 3000);
         }
 
         function setupEventListeners() {
-            // Header login button
-            document.getElementById('loginBtn').addEventListener('click', function() {
-                showAuth('login');
-            });
+            document.getElementById('loginBtn').addEventListener('click', function() { showAuth('login'); });
+            document.getElementById('registerDashboardBtn').addEventListener('click', function() { showAuth('register'); });
+            document.getElementById('loginDashboardLink').addEventListener('click', function(e) { e.preventDefault(); showAuth('login'); });
 
-            // Dashboard register button
-            document.getElementById('registerDashboardBtn').addEventListener('click', function() {
-                showAuth('register');
-            });
+            document.getElementById('navDashboard').addEventListener('click', function() { showSection('dashboard'); });
+            document.getElementById('navTasks').addEventListener('click', function() { showSection('tasks'); loadDailyTasks(); });
+            document.getElementById('navWallet').addEventListener('click', function() { showSection('wallet'); loadTransactionHistory(); });
+            document.getElementById('navVip').addEventListener('click', function() { showSection('vip'); });
+            document.getElementById('navSupport').addEventListener('click', function() { showSection('support'); });
 
-            // Dashboard login link
-            document.getElementById('loginDashboardLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                showAuth('login');
-            });
+            document.getElementById('showTasksBtn').addEventListener('click', function() { showSection('tasks'); loadDailyTasks(); });
+            document.getElementById('showWalletBtn').addEventListener('click', function() { showSection('wallet'); loadTransactionHistory(); });
+            document.getElementById('showSupportBtn').addEventListener('click', function() { showSection('support'); });
 
-            // Bottom navigation
-            document.getElementById('navDashboard').addEventListener('click', function() {
-                showSection('dashboard');
-            });
-            document.getElementById('navTasks').addEventListener('click', function() {
-                showSection('tasks');
-                loadDailyTasks();
-            });
-            document.getElementById('navWallet').addEventListener('click', function() {
-                showSection('wallet');
-                loadTransactionHistory();
-            });
-            document.getElementById('navVip').addEventListener('click', function() {
-                showSection('vip');
-            });
-            document.getElementById('navSupport').addEventListener('click', function() {
-                showSection('support');
-            });
+            document.getElementById('activateInternBtn').addEventListener('click', function() { showAuth('register'); });
+            
+            document.getElementById('upgradeS1Btn').addEventListener('click', function() { showDepositModal('Senior 1', 50000); });
+            document.getElementById('upgradeS2Btn').addEventListener('click', function() { showDepositModal('Senior 2', 80000); });
+            document.getElementById('upgradeS3Btn').addEventListener('click', function() { showDepositModal('Senior 3', 150000); });
+            document.getElementById('upgradeS4Btn').addEventListener('click', function() { showDepositModal('Senior 4', 350000); });
 
-            // Quick actions
-            document.getElementById('showTasksBtn').addEventListener('click', function() {
-                showSection('tasks');
-                loadDailyTasks();
-            });
-            document.getElementById('showWalletBtn').addEventListener('click', function() {
-                showSection('wallet');
-                loadTransactionHistory();
-            });
-            document.getElementById('showSupportBtn').addEventListener('click', function() {
-                showSection('support');
-            });
-
-            // Level upgrade buttons
-            document.getElementById('activateInternBtn').addEventListener('click', function() {
-                showAuth('register');
-            });
-            document.getElementById('upgradeS1Btn').addEventListener('click', function() {
-                showDepositModal('S1', 40000);
-            });
-            document.getElementById('upgradeS2Btn').addEventListener('click', function() {
-                showDepositModal('S2', 200000);
-            });
-            document.getElementById('upgradeS3Btn').addEventListener('click', function() {
-                showDepositModal('S3', 500000);
-            });
-            document.getElementById('upgradeS4Btn').addEventListener('click', function() {
-                showDepositModal('S4', 1000000);
-            });
-
-            // Bonus and referral
             document.getElementById('claimBonusBtn').addEventListener('click', claimDailyBonus);
             document.getElementById('shareReferralBtn').addEventListener('click', shareReferral);
 
-            // Wallet
             document.getElementById('withdrawBtn').addEventListener('click', processWithdrawal);
 
-            // Support
             document.getElementById('openSupportTelegramBtn').addEventListener('click', openSupportTelegram);
             document.getElementById('sendSupportBtn').addEventListener('click', sendSupportMessage);
 
-            // Modal close buttons
             document.getElementById('closeAuthModal').addEventListener('click', hideAuth);
             document.getElementById('closeDepositModal').addEventListener('click', hideDepositModal);
 
-            // Close modals when clicking outside
             window.addEventListener('click', function(event) {
                 if (event.target.classList.contains('modal')) {
                     event.target.style.display = 'none';
@@ -1406,20 +1566,15 @@
                     <div class="withdraw-phone">${phone}</div>
                     <div class="withdraw-amount">withdrew ugx${amount.toLocaleString()}</div>
                 `;
-                
                 withdrawsScroll.appendChild(withdrawBox);
             }
             
-            // Duplicate content for seamless looping
             const content = withdrawsScroll.innerHTML;
             withdrawsScroll.innerHTML += content;
         }
 
         function generateMaskedPhone() {
-            const prefix = '07';
-            const middle = '*****';
-            const lastTwo = Math.floor(Math.random() * 90 + 10).toString();
-            return prefix + middle + lastTwo;
+            return '07*****' + Math.floor(Math.random() * 90 + 10).toString();
         }
 
         function generateRandomAmount() {
@@ -1427,35 +1582,14 @@
         }
 
         function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('main > section').forEach(section => {
-                section.classList.add('hidden');
-            });
-            
-            // Show the selected section
+            document.querySelectorAll('main > section').forEach(section => { section.classList.add('hidden'); });
             const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.remove('hidden');
-            }
+            if (targetSection) targetSection.classList.remove('hidden');
             
-            // Update bottom navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Activate the corresponding nav item
+            document.querySelectorAll('.nav-item').forEach(item => { item.classList.remove('active'); });
             const navItems = document.querySelectorAll('.nav-item');
-            const sectionMap = {
-                'dashboard': 0,
-                'tasks': 1,
-                'wallet': 2,
-                'vip': 3,
-                'support': 4
-            };
-            
-            if (sectionMap[sectionId] !== undefined) {
-                navItems[sectionMap[sectionId]].classList.add('active');
-            }
+            const sectionMap = { 'dashboard': 0, 'tasks': 1, 'wallet': 2, 'vip': 3, 'support': 4 };
+            if (sectionMap[sectionId] !== undefined) navItems[sectionMap[sectionId]].classList.add('active');
         }
 
         function showAuth(type) {
@@ -1464,7 +1598,7 @@
             
             if (type === 'register') {
                 content.innerHTML = `
-                    <h3 class="text-center" style="color: var(--primary);">Join Beam Earn 🚀</h3>
+                    <h3 class="text-center" style="color: var(--white); margin-bottom: 0.75rem; font-size: 1.1rem;">Join Beam Earn 🚀</h3>
                     <div class="input-group">
                         <input type="text" id="regName" class="input" placeholder="Full Name" required>
                     </div>
@@ -1478,19 +1612,15 @@
                         <input type="text" id="regReferral" class="input" placeholder="Referral Code (Optional)">
                     </div>
                     <button class="btn btn-primary" id="registerBtn">Create Account</button>
-                    <p class="text-center mt-2">
-                        Already have an account? <a href="#" id="showLoginLink" style="color: var(--primary);">Login</a>
+                    <p class="text-center mt-1" style="color: var(--text-muted); font-size: 0.8rem;">
+                        Already have an account? <a href="#" id="showLoginLink" style="color: var(--primary); font-weight: bold; text-decoration: none;">Login</a>
                     </p>
                 `;
-                
                 document.getElementById('registerBtn').addEventListener('click', register);
-                document.getElementById('showLoginLink').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    showAuth('login');
-                });
+                document.getElementById('showLoginLink').addEventListener('click', function(e) { e.preventDefault(); showAuth('login'); });
             } else {
                 content.innerHTML = `
-                    <h3 class="text-center" style="color: var(--primary);">Welcome Back! 👋</h3>
+                    <h3 class="text-center" style="color: var(--white); margin-bottom: 0.75rem; font-size: 1.1rem;">Welcome Back! 👋</h3>
                     <div class="input-group">
                         <input type="tel" id="loginPhone" class="input" placeholder="Phone Number (e.g. 0707275930)" required>
                     </div>
@@ -1498,32 +1628,23 @@
                         <input type="password" id="loginPassword" class="input" placeholder="Password" required>
                     </div>
                     <button class="btn btn-primary" id="loginModalBtn">Login</button>
-                    <p class="text-center mt-2">
-                        Don't have an account? <a href="#" id="showRegisterLink" style="color: var(--primary);">Register</a>
+                    <p class="text-center mt-1" style="color: var(--text-muted); font-size: 0.8rem;">
+                        Don't have an account? <a href="#" id="showRegisterLink" style="color: var(--primary); font-weight: bold; text-decoration: none;">Register</a>
                     </p>
                 `;
-                
                 document.getElementById('loginModalBtn').addEventListener('click', login);
-                document.getElementById('showRegisterLink').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    showAuth('register');
-                });
+                document.getElementById('showRegisterLink').addEventListener('click', function(e) { e.preventDefault(); showAuth('register'); });
             }
-            
             modal.style.display = 'block';
         }
 
-        function hideAuth() {
-            document.getElementById('authModal').style.display = 'none';
-        }
+        function hideAuth() { document.getElementById('authModal').style.display = 'none'; }
 
-        // Convert phone number to email format for Firebase Auth
         function phoneToEmail(phone) {
             phone = phone.trim().replace(/\s+/g, "");
             if (phone.startsWith("0")) phone = "+256" + phone.slice(1);
             if (!phone.startsWith("+")) phone = "+256" + phone;
-            const local = phone.replace(/\+/g, "p").replace(/\D/g, "");
-            return local + "@beam-earn.local";
+            return phone.replace(/\+/g, "p").replace(/\D/g, "") + "@beam-earn.local";
         }
 
         async function register() {
@@ -1532,36 +1653,16 @@
             const password = document.getElementById('regPassword').value;
             const referralCode = document.getElementById('regReferral').value;
 
-            if (!name || !phone || !password) {
-                alert('Please fill all required fields!');
-                return;
-            }
-
-            if (password.length < 6) {
-                alert('Password must be at least 6 characters long!');
-                return;
-            }
-
-            // Validate phone number
-            const phoneRegex = /^(0|\+256)\d{9}$/;
-            if (!phoneRegex.test(phone)) {
-                alert('Please enter a valid phone number (e.g. 0707275930 or +256707275930)');
-                return;
-            }
+            if (!name || !phone || !password) { alert('Please fill all required fields!'); return; }
+            if (password.length < 6) { alert('Password must be at least 6 characters long!'); return; }
 
             try {
-                // Convert phone to email format
                 const email = phoneToEmail(phone);
-                
-                // Create Firebase Auth user
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                 const user = userCredential.user;
-
-                // Generate referral code
                 const userReferralCode = generateReferralCode();
                 
-                // Create user data for Firestore
-                const userData = {
+                const newUserData = {
                     id: user.uid,
                     name: name,
                     phone: phone,
@@ -1569,10 +1670,10 @@
                     referralCode: userReferralCode,
                     referredBy: referralCode || null,
                     level: 'intern',
-                    balance: 25,
+                    balance: 0,
                     referralEarnings: 0,
                     referralCount: 0,
-                    totalEarned: 25,
+                    totalEarned: 0,
                     internStartDate: new Date().toISOString(),
                     internDaysLeft: 2,
                     tasksCompleted: 0,
@@ -1585,120 +1686,39 @@
                     isActive: true
                 };
 
-                // Save user data to Firestore with error handling
-                try {
-                    await db.collection('users').doc(user.uid).set(userData);
-                    
-                    // Handle referral if provided
-                    if (referralCode) {
-                        await handleReferral(referralCode, user.uid);
-                    }
-                    
-                    alert('Welcome to Beam Earn! 🎉 You have 2 days FREE intern access!');
-                    hideAuth();
-                } catch (firestoreError) {
-                    console.error('Firestore error:', firestoreError);
-                    
-                    // If Firestore fails, delete the auth user to avoid orphaned accounts
-                    await user.delete();
-                    
-                    if (firestoreError.code === 'permission-denied') {
-                        alert('Registration failed due to security rules. Please try again or contact support.');
-                    } else {
-                        alert('Registration completed but profile setup failed. Please login and try again.');
-                    }
-                }
-                
+                await db.collection('users').doc(user.uid).set(newUserData);
+                if (referralCode) await handleReferral(referralCode, user.uid);
+                alert('Welcome to Beam Earn! 🎉 You have 2 days FREE intern access!');
+                hideAuth();
             } catch (error) {
-                console.error('Registration error:', error);
-                if (error.code === 'auth/email-already-in-use') {
-                    alert('This phone number is already registered. Please login or use a different phone number.');
-                } else {
-                    alert('Error creating account: ' + error.message);
-                }
+                alert('Error creating account: ' + error.message);
             }
         }
 
         async function handleReferral(referralCode, newUserId) {
             try {
-                // Find user with this referral code
-                const usersRef = db.collection('users');
-                const querySnapshot = await usersRef.where('referralCode', '==', referralCode).get();
-                
+                const querySnapshot = await db.collection('users').where('referralCode', '==', referralCode).get();
                 if (!querySnapshot.empty) {
                     const referrerDoc = querySnapshot.docs[0];
-                    const referrerData = referrerDoc.data();
-                    const referrerId = referrerDoc.id;
-                    
-                    // Update referrer's data
-                    await db.collection('users').doc(referrerId).update({
+                    await db.collection('users').doc(referrerDoc.id).update({
                         referralCount: firebase.firestore.FieldValue.increment(1)
                     });
-                    
-                    // Add referral record
-                    const referralData = {
-                        referrerId: referrerId,
-                        referredUserId: newUserId,
-                        referralCode: referralCode,
-                        date: new Date().toISOString(),
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                    };
-                    
-                    await db.collection('referrals').add(referralData);
-                    
-                    console.log('Referral recorded successfully');
                 }
-            } catch (error) {
-                console.error('Error handling referral:', error);
-                // Don't block registration if referral fails
-            }
+            } catch (error) { console.error(error); }
         }
 
         async function login() {
             const phone = document.getElementById('loginPhone').value;
             const password = document.getElementById('loginPassword').value;
 
-            if (!phone || !password) {
-                alert('Please enter both phone number and password!');
-                return;
-            }
-
-            // Validate phone number
-            const phoneRegex = /^(0|\+256)\d{9}$/;
-            if (!phoneRegex.test(phone)) {
-                alert('Please enter a valid phone number (e.g. 0707275930 or +256707275930)');
-                return;
-            }
+            if (!phone || !password) { alert('Please enter phone and password!'); return; }
 
             try {
-                // Convert phone to email format
                 const email = phoneToEmail(phone);
-                
-                const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-                
-                // Update last active timestamp with error handling
-                try {
-                    await db.collection('users').doc(user.uid).update({
-                        lastActive: new Date().toISOString()
-                    });
-                } catch (firestoreError) {
-                    console.error('Firestore update error:', firestoreError);
-                    // Continue with login even if Firestore update fails
-                }
-
-                alert(`Welcome back! 👋`);
+                await auth.signInWithEmailAndPassword(email, password);
                 hideAuth();
-                
             } catch (error) {
-                console.error('Login error:', error);
-                if (error.code === 'auth/user-not-found') {
-                    alert('No account found with this phone number. Please register first.');
-                } else if (error.code === 'auth/wrong-password') {
-                    alert('Invalid password. Please try again.');
-                } else {
-                    alert('Invalid phone number or password!');
-                }
+                alert('Invalid phone number or password!');
             }
         }
 
@@ -1712,72 +1732,13 @@
                 const navAuth = document.querySelector('.nav-auth');
 
                 if (user) {
-                    // User is signed in
                     currentUser = user;
-                    
-                    // Load user data from Firestore with error handling
-                    try {
-                        const userDoc = await db.collection('users').doc(user.uid).get();
-                        if (userDoc.exists) {
-                            userData = userDoc.data();
-                            updateUIForLoggedInUser();
-                        } else {
-                            console.error('No user data found! Creating default profile...');
-                            // Create a basic user profile if it doesn't exist
-                            const basicUserData = {
-                                id: user.uid,
-                                name: 'User',
-                                phone: 'Unknown',
-                                email: user.email,
-                                referralCode: generateReferralCode(),
-                                level: 'intern',
-                                balance: 0,
-                                referralEarnings: 0,
-                                referralCount: 0,
-                                totalEarned: 0,
-                                internStartDate: new Date().toISOString(),
-                                internDaysLeft: 2,
-                                tasksCompleted: 0,
-                                joinedDate: new Date().toISOString(),
-                                lastActive: new Date().toISOString(),
-                                lastBonusClaim: '',
-                                lastTaskDate: '',
-                                dailyQuestionsCompleted: 0,
-                                dailyQuestionsLimit: 2,
-                                isActive: true
-                            };
-                            
-                            try {
-                                await db.collection('users').doc(user.uid).set(basicUserData);
-                                userData = basicUserData;
-                                updateUIForLoggedInUser();
-                            } catch (createError) {
-                                console.error('Error creating user profile:', createError);
-                                // Use minimal data if Firestore fails
-                                userData = {
-                                    id: user.uid,
-                                    name: 'User',
-                                    level: 'intern',
-                                    balance: 0,
-                                    referralEarnings: 0,
-                                    referralCount: 0,
-                                    referralCode: 'ERROR'
-                                };
-                                updateUIForLoggedInUser();
-                            }
-                        }
-                    } catch (error) {
-                        console.error('Error loading user data:', error);
-                        // Use minimal data if Firestore fails
-                        userData = {
-                            id: user.uid,
-                            name: 'User',
-                            level: 'intern',
-                            balance: 0,
-                            referralEarnings: 0,
-                            referralCount: 0,
-                            referralCode: 'ERROR'
-                        };
+                    const userDoc = await db.collection('users').doc(user.uid).get();
+                    if (userDoc.exists) {
+                        userData = userDoc.data();
+                        
+                        // INITIALIZE DYNAMIC REAL-TIME REFERRAL COUNTER
+                        setupReferralListener(userData.referralCode);
                         updateUIForLoggedInUser();
                     }
 
@@ -1793,201 +1754,141 @@
                     }
                     
                     navAuth.innerHTML = `
-                        <span style="margin-right: 1rem; color: var(--primary); font-weight: 600;">Hi, ${userData?.name || 'User'}</span>
-                        <button class="btn btn-warning" id="logoutBtn" style="padding: 8px 15px; width: auto;">Logout</button>
+                        <span style="margin-right: 0.5rem; color: var(--white); font-weight: 600; font-size: 0.8rem;">Hi, ${userData?.name || 'User'}</span>
+                        <button class="btn btn-warning" id="logoutBtn" style="padding: 4px 10px; width: auto; font-size: 0.8rem; margin: 0; border-radius: 6px;">Logout</button>
                     `;
                     document.getElementById('logoutBtn').addEventListener('click', logout);
-                    
                 } else {
-                    // User is signed out
+                    if (referralUnsubscribe) referralUnsubscribe();
                     currentUser = null;
                     userData = null;
-                    
                     registerPrompt.classList.remove('hidden');
                     userStats.classList.add('hidden');
                     referralSection.classList.add('hidden');
                     dailyBonusSection.classList.add('hidden');
                     internCountdown.classList.add('hidden');
                     
-                    navAuth.innerHTML = `
-                        <button class="btn btn-primary" id="loginBtnHeader" style="padding: 10px 20px; width: auto;">Login</button>
-                    `;
-                    document.getElementById('loginBtnHeader').addEventListener('click', function() {
-                        showAuth('login');
-                    });
+                    navAuth.innerHTML = `<button class="btn btn-primary" id="loginBtnHeader" style="padding: 6px 14px; width: auto; margin: 0; border-radius: 6px; font-size: 0.85rem;">Login</button>`;
+                    document.getElementById('loginBtnHeader').addEventListener('click', function() { showAuth('login'); });
                 }
             });
+        }
+
+        /* FIXED REFERRAL COUNTING FUNCTION & PREVENT NaN BALANCES */
+        function setupReferralListener(code) {
+            if (!code) return;
+            if (referralUnsubscribe) referralUnsubscribe();
+
+            referralUnsubscribe = db.collection('users')
+                .where('referredBy', '==', code)
+                .onSnapshot(snapshot => {
+                    const count = snapshot.size;
+                    let totalRefEarnings = 0;
+
+                    snapshot.docs.forEach(doc => {
+                        const refUser = doc.data();
+                        const earned = Number(refUser.totalEarned) || 0;
+                        totalRefEarnings += Math.floor(earned * 0.05);
+                    });
+
+                    if (userData) {
+                        userData.referralCount = count;
+                        userData.referralEarnings = totalRefEarnings;
+                    }
+
+                    document.getElementById('referralCount').textContent = count;
+                    document.getElementById('referralEarnings').textContent = (totalRefEarnings || 0).toLocaleString() + ' UGX';
+                    document.getElementById('walletReferral').textContent = (totalRefEarnings || 0).toLocaleString() + ' UGX';
+
+                    if (userData && userData.level === 'intern' && count >= 50) {
+                        upgradeUserLevel('S1');
+                    }
+                }, err => { console.error('Referral listener error:', err); });
         }
 
         function updateUIForLoggedInUser() {
             if (!userData) return;
             
-            document.getElementById('availableBalance').textContent = userData.balance.toLocaleString() + ' UGX';
-            document.getElementById('vipLevel').textContent = userData.level.toUpperCase();
-            document.getElementById('referralCount').textContent = userData.referralCount;
-            document.getElementById('referralEarnings').textContent = userData.referralEarnings.toLocaleString() + ' UGX';
-            document.getElementById('walletBalance').textContent = userData.balance.toLocaleString() + ' UGX';
-            document.getElementById('walletReferral').textContent = userData.referralEarnings.toLocaleString() + ' UGX';
-            document.getElementById('userReferralCode').textContent = userData.referralCode;
+            const balance = Number(userData.balance) || 0;
+            const refEarnings = Number(userData.referralEarnings) || 0;
             
-            // Auto-upgrade if user has 50+ referrals and is intern
-            if (userData.level === 'intern' && userData.referralCount >= 50) {
-                upgradeUserLevel('S1');
-            }
+            document.getElementById('availableBalance').textContent = balance.toLocaleString() + ' UGX';
+            document.getElementById('vipLevel').textContent = (userData.level || 'INTERN').toUpperCase();
+            document.getElementById('referralCount').textContent = userData.referralCount || 0;
+            document.getElementById('referralEarnings').textContent = refEarnings.toLocaleString() + ' UGX';
+            document.getElementById('walletBalance').textContent = balance.toLocaleString() + ' UGX';
+            document.getElementById('walletReferral').textContent = refEarnings.toLocaleString() + ' UGX';
+            document.getElementById('userReferralCode').textContent = userData.referralCode || 'N/A';
         }
 
         async function upgradeUserLevel(newLevel) {
             if (!currentUser) return;
-            
             try {
-                await db.collection('users').doc(currentUser.uid).update({
-                    level: newLevel
-                });
-                
-                // Update local userData
+                await db.collection('users').doc(currentUser.uid).update({ level: newLevel });
                 userData.level = newLevel;
-                
                 alert(`🎉 Congratulations! You have been upgraded to ${newLevel} level!`);
                 updateUIForLoggedInUser();
-            } catch (error) {
-                console.error('Error upgrading user level:', error);
-            }
+            } catch (error) { console.error(error); }
         }
 
         function showDepositModal(level, amount) {
-            if (!currentUser) {
-                alert('Please login first!');
-                return;
-            }
+            if (!currentUser) { alert('Please login first!'); return; }
             
             const modal = document.getElementById('depositModal');
             const content = document.getElementById('depositContent');
             
             content.innerHTML = `
-                <h3 class="text-center" style="color: var(--primary);">Upgrade to ${level} 💫</h3>
-                <p class="text-center">Investment Amount: <strong>${amount.toLocaleString()} UGX</strong></p>
+                <h3 class="text-center" style="color: var(--white); font-size: 1.1rem;">Upgrade to ${level} 💫</h3>
+                <p class="text-center" style="color: var(--text-muted); margin-bottom: 0.75rem; font-size: 0.85rem;">Investment Amount: <strong style="color: var(--white);">${amount.toLocaleString()} UGX</strong></p>
                 
                 <div class="merchant-code-display">
                     <div class="merchant-code-title">🏪 Merchant Code</div>
                     <div class="merchant-code-value">6911104</div>
-                    <p style="color: #856404; margin-top: 10px; font-size: 0.9rem;">Use this code for both Airtel Money and MTN Mobile Money payments</p>
+                    <p style="color: var(--warning); margin-top: 4px; font-size: 0.75rem;">Use this code for both Airtel Money and MTN Mobile Money payments</p>
                 </div>
 
                 <div class="payment-method-tabs">
-                    <div class="payment-tab active" id="airtelTab">
-                        📱 Airtel Money
-                    </div>
-                    <div class="payment-tab" id="mtnTab">
-                        💛 MTN Money
-                    </div>
+                    <div class="payment-tab active" id="airtelTab">📱 Airtel Money</div>
+                    <div class="payment-tab" id="mtnTab">💛 MTN Money</div>
                 </div>
 
                 <div id="airtelInstructions" class="payment-instructions active">
-                    <h4>📱 How to Pay via Airtel Money:</h4>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">1</div>
-                        <div class="step-text">Dial <span class="step-highlight">*185*9#</span></div>
-                    </div>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">2</div>
-                        <div class="step-text">Enter Merchant Code: <span class="step-highlight">6911104</span></div>
-                    </div>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">3</div>
-                        <div class="step-text">Enter Amount: <span class="step-highlight">${amount.toLocaleString()} UGX</span></div>
-                    </div>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">4</div>
-                        <div class="step-text">Enter your <span class="step-highlight">PIN to confirm</span></div>
-                    </div>
-                    
-                    <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: center; font-weight: bold; font-size: 0.9rem;">
-                        ✅ You'll get a confirmation SMS right after.
-                    </div>
+                    <h4 style="color: var(--white); margin-bottom: 8px; font-size: 0.85rem;">📱 How to Pay via Airtel Money:</h4>
+                    <div class="payment-step"><div class="step-number">1</div><div class="step-text">Dial <span class="step-highlight">*185*9#</span></div></div>
+                    <div class="payment-step"><div class="step-number">2</div><div class="step-text">Enter Merchant Code: <span class="step-highlight">6911104</span></div></div>
+                    <div class="payment-step"><div class="step-number">3</div><div class="step-text">Enter Amount: <span class="step-highlight">${amount.toLocaleString()} UGX</span></div></div>
+                    <div class="payment-step"><div class="step-number">4</div><div class="step-text">Enter your <span class="step-highlight">PIN to confirm</span></div></div>
                 </div>
 
                 <div id="mtnInstructions" class="payment-instructions">
-                    <h4>💛 How to Pay via MTN Mobile Money:</h4>
-                    
-                    <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: bold;">
-                        🚨 For better service, we recommend using an Airtel line for payments. MTN is currently under maintenance.
-                    </div>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">1</div>
-                        <div class="step-text">Dial <span class="step-highlight">*165*3#</span></div>
-                    </div>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">2</div>
-                        <div class="step-text">Choose <span class="step-highlight">1 – Send Money</span></div>
-                    </div>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">3</div>
-                        <div class="step-text">Enter Merchant Code: <span class="step-highlight">6911104</span></div>
-                    </div>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">4</div>
-                        <div class="step-text">Enter Amount: <span class="step-highlight">${amount.toLocaleString()} UGX</span></div>
-                    </div>
-                    
-                    <div class="payment-step">
-                        <div class="step-number">5</div>
-                        <div class="step-text">Enter your <span class="step-highlight">PIN to confirm</span></div>
-                    </div>
-                    
-                    <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: center; font-weight: bold; font-size: 0.9rem;">
-                        ✅ You'll get an SMS confirming payment.
-                    </div>
+                    <h4 style="color: var(--white); margin-bottom: 8px; font-size: 0.85rem;">💛 How to Pay via MTN Mobile Money:</h4>
+                    <div class="payment-step"><div class="step-number">1</div><div class="step-text">Dial <span class="step-highlight">*165*3#</span></div></div>
+                    <div class="payment-step"><div class="step-number">2</div><div class="step-text">Choose <span class="step-highlight">1 – Send Money</span></div></div>
+                    <div class="payment-step"><div class="step-number">3</div><div class="step-text">Enter Merchant Code: <span class="step-highlight">6911104</span></div></div>
+                    <div class="payment-step"><div class="step-number">4</div><div class="step-text">Enter Amount: <span class="step-highlight">${amount.toLocaleString()} UGX</span></div></div>
+                    <div class="payment-step"><div class="step-number">5</div><div class="step-text">Enter your <span class="step-highlight">PIN to confirm</span></div></div>
                 </div>
 
                 <div class="input-group">
                     <input type="text" id="transactionId" class="input" placeholder="Enter Transaction ID from SMS">
                 </div>
 
-                <div class="paid-button-container">
-                    <button type="button" class="btn btn-success" id="submitPaymentBtn" 
-                            style="padding: 15px; font-size: 16px; font-weight: bold;">
+                <div class="paid-button-container" style="margin-top: 10px;">
+                    <button type="button" class="btn btn-success" id="submitPaymentBtn" style="padding: 12px; font-weight: bold;">
                         ✅ I HAVE PAID - VERIFY MY PAYMENT
                     </button>
-                    <p style="text-align: center; margin-top: 10px; color: #666; font-size: 0.9rem;">
-                        Click after completing your payment to notify admin
-                    </p>
-                </div>
-                
-                <div class="text-center mt-2">
-                    <button class="btn btn-warning" id="supportHelpBtn" style="font-size: 0.9rem;">💬 Need Help? Open WhatsApp Channel</button>
                 </div>
             `;
             
             modal.style.display = 'block';
-            
-            // Add event listeners for dynamic content
-            document.getElementById('airtelTab').addEventListener('click', function() {
-                switchPaymentMethod('airtel');
-            });
-            document.getElementById('mtnTab').addEventListener('click', function() {
-                switchPaymentMethod('mtn');
-            });
-            document.getElementById('submitPaymentBtn').addEventListener('click', function() {
-                submitPayment(level, amount);
-            });
-            document.getElementById('supportHelpBtn').addEventListener('click', openSupportTelegram);
+            document.getElementById('airtelTab').addEventListener('click', function() { switchPaymentMethod('airtel'); });
+            document.getElementById('mtnTab').addEventListener('click', function() { switchPaymentMethod('mtn'); });
+            document.getElementById('submitPaymentBtn').addEventListener('click', function() { submitPayment(level, amount); });
         }
 
         function switchPaymentMethod(method) {
-            document.querySelectorAll('.payment-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.payment-instructions').forEach(instruction => {
-                instruction.classList.remove('active');
-            });
+            document.querySelectorAll('.payment-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.payment-instructions').forEach(inst => inst.classList.remove('active'));
             
             if (method === 'airtel') {
                 document.getElementById('airtelTab').classList.add('active');
@@ -1998,23 +1899,15 @@
             }
         }
 
-        function hideDepositModal() {
-            document.getElementById('depositModal').style.display = 'none';
-        }
+        function hideDepositModal() { document.getElementById('depositModal').style.display = 'none'; }
 
         async function submitPayment(level, amount) {
             if (!currentUser) return;
-            
             const transactionId = document.getElementById('transactionId').value;
-            
-            if (!transactionId) {
-                alert('Please enter your transaction ID from the SMS confirmation');
-                return;
-            }
+            if (!transactionId) { alert('Please enter your transaction ID'); return; }
             
             try {
-                // Create payment record in Firestore
-                const paymentData = {
+                await db.collection('payments').add({
                     userId: currentUser.uid,
                     userName: userData.name,
                     userPhone: userData.phone,
@@ -2024,95 +1917,83 @@
                     status: 'pending',
                     date: new Date().toISOString(),
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-
-                await db.collection('payments').add(paymentData);
-
-                alert(`Payment submitted for ${level} level! We will verify your payment and upgrade your account within 24 hours.`);
+                });
+                alert(`Payment submitted for ${level}! Account will be upgraded after verification.`);
                 hideDepositModal();
-            } catch (error) {
-                console.error('Error submitting payment:', error);
-                alert('Error submitting payment. Please try again.');
-            }
+            } catch (error) { alert('Error submitting payment.'); }
         }
 
         async function claimDailyBonus() {
-            if (!currentUser || !userData) {
-                alert('Please login first!');
-                return;
-            }
-            
+            if (!currentUser || !userData) { alert('Please login first!'); return; }
             const today = new Date().toDateString();
-            const lastClaimDate = userData.lastBonusClaim || '';
+            if (userData.lastBonusClaim === today) { alert('Bonus already claimed today!'); return; }
             
-            if (lastClaimDate === today) {
-                alert('You have already claimed your daily bonus today!');
-                return;
-            }
-            
-            const newBalance = userData.balance + 25;
-            const newTotalEarned = userData.totalEarned + 25;
+            const currentBal = Number(userData.balance) || 0;
+            const currentEarned = Number(userData.totalEarned) || 0;
+            const newBalance = currentBal + 500;
             
             try {
                 await db.collection('users').doc(currentUser.uid).update({
                     balance: newBalance,
-                    totalEarned: newTotalEarned,
+                    totalEarned: currentEarned + 500,
                     lastBonusClaim: today
                 });
-                
-                // Add transaction record
-                const transactionData = {
-                    userId: currentUser.uid,
-                    type: 'bonus',
-                    amount: 500,
-                    description: 'Daily login bonus',
-                    date: new Date().toISOString(),
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                await db.collection('transactions').add(transactionData);
-                
-                // Update local userData
                 userData.balance = newBalance;
-                userData.totalEarned = newTotalEarned;
+                userData.totalEarned = currentEarned + 500;
                 userData.lastBonusClaim = today;
-                
-                alert('🎉 Daily bonus claimed! 500UGX added to your balance!');
+                alert('🎉 Daily bonus of 500 UGX claimed!');
                 updateUIForLoggedInUser();
-            } catch (error) {
-                console.error('Error claiming bonus:', error);
-                alert('Error claiming bonus. Please try again.');
-            }
+            } catch (error) { alert('Error claiming bonus.'); }
         }
 
         function shareReferral() {
             if (!userData) return;
-            
-            const message = `Join Beam Earn and start earning money daily! Use my referral code: ${userData.referralCode}. Earn 1,000 UGX daily for FREE! 🚀`;
-            
+            const message = `Join Beam Earn! Use my code: ${userData.referralCode} and earn daily!`;
             if (navigator.share) {
-                navigator.share({
-                    title: 'Join Beam Earn',
-                    text: message,
-                    url: window.location.href
-                });
+                navigator.share({ title: 'Beam Earn', text: message, url: window.location.href });
             } else {
-                navigator.clipboard.writeText(message).then(() => {
-                    alert('Referral message copied to clipboard! 📋');
-                });
+                navigator.clipboard.writeText(message);
+                alert('Referral text copied!');
             }
         }
 
+        /* DAILY TASKS SETUP WITH STREAMLINED CARDS */
         async function loadDailyTasks() {
             if (!currentUser || !userData) {
                 alert('Please login first!');
                 showSection('dashboard');
                 return;
             }
-            
+
+            if (userData.level === 'intern') {
+                const startDate = new Date(userData.internStartDate);
+                const now = new Date();
+                const diffTime = Math.abs(now - startDate);
+                const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+                if (diffDays > 2) {
+                    const tasksContainer = document.getElementById('tasksContainer');
+                    const dailyTaskStatus = document.getElementById('dailyTaskStatus');
+
+                    dailyTaskStatus.innerHTML = `<p style="color: var(--danger); font-weight: bold;">⚠️ Trial Expired</p>`;
+                    tasksContainer.innerHTML = `
+                        <div class="card text-center" style="border: 1px solid var(--danger);">
+                            <h3 style="color: var(--danger); margin-bottom: 0.4rem; font-size: 1rem;">🔒 Free Intern Period Has Ended</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem;">
+                                Your 2-day intern trial is over. Upgrade your plan to access questions.
+                            </p>
+                            <button class="btn btn-primary" onclick="showSection('vip')">
+                                Upgrade to Senior 1 (S1) to Continue
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+            }
+
             const tasksContainer = document.getElementById('tasksContainer');
             const dailyTaskStatus = document.getElementById('dailyTaskStatus');
             
-            // Check if it's a new day
             const today = new Date().toDateString();
             if (userData.lastTaskDate !== today) {
                 try {
@@ -2122,43 +2003,36 @@
                     });
                     userData.dailyQuestionsCompleted = 0;
                     userData.lastTaskDate = today;
-                } catch (error) {
-                    console.error('Error resetting daily tasks:', error);
-                }
+                } catch (error) { console.error(error); }
             }
-            
-            // Get user's daily question limit based on level
+
             let dailyLimit = 2;
             switch(userData.level) {
-                case 'S1': dailyLimit = 4; break;
-                case 'S2': dailyLimit = 8; break;
-                case 'S3': dailyLimit = 12; break;
-                case 'S4': dailyLimit = 16; break;
+                case 'S1': case 'Senior 1': dailyLimit = 4; break;
+                case 'S2': case 'Senior 2': dailyLimit = 6; break;
+                case 'S3': case 'Senior 3': dailyLimit = 8; break;
+                case 'S4': case 'Senior 4': dailyLimit = 12; break;
+                default: dailyLimit = 2; break;
             }
             
-            // Update status display
             dailyTaskStatus.innerHTML = `
-                <p>Questions Completed Today: ${userData.dailyQuestionsCompleted}/${dailyLimit}</p>
-                <p>Earnings Per Question: ${getEarningsPerQuestion(userData.level)} UGX</p>
+                <p style="color: var(--white);">Questions Completed Today: ${userData.dailyQuestionsCompleted}/${dailyLimit}</p>
+                <p style="color: var(--accent); font-size: 0.8rem; margin-top: 2px;">Daily Target: ${getDailyEarningsTarget(userData.level)} UGX</p>
             `;
             
-            // Check if user has completed all daily questions
             if (userData.dailyQuestionsCompleted >= dailyLimit) {
                 tasksContainer.innerHTML = `
                     <div class="card text-center">
-                        <h3 style="color: var(--success);">🎉 All Questions Completed!</h3>
-                        <p>You've completed all ${dailyLimit} questions for today.</p>
-                        <p>Come back tomorrow for more earning opportunities!</p>
+                        <h3 style="color: var(--success); font-size: 1rem;">🎉 Daily Limit Reached!</h3>
+                        <p style="color: var(--text-muted); margin-top: 4px; font-size: 0.8rem;">You've completed all ${dailyLimit} questions for today.</p>
                     </div>
                 `;
                 return;
             }
             
-            // Get random questions
             const questions = generateQuestions();
             const randomQuestions = getRandomQuestions(questions, dailyLimit - userData.dailyQuestionsCompleted);
             
-            // Display questions
             tasksContainer.innerHTML = '';
             randomQuestions.forEach((question, index) => {
                 const questionCard = document.createElement('div');
@@ -2176,7 +2050,6 @@
                 tasksContainer.appendChild(questionCard);
             });
             
-            // Add event listeners to option buttons
             document.querySelectorAll('.option-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const questionId = this.getAttribute('data-question-id');
@@ -2187,208 +2060,141 @@
         }
 
         function getRandomQuestions(questions, count) {
-            const shuffled = [...questions].sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, count);
+            return [...questions].sort(() => 0.5 - Math.random()).slice(0, count);
         }
 
         async function checkAnswer(questionId, selectedAnswer, button) {
             if (!currentUser || !userData) return;
             
-            const questions = generateQuestions();
-            const question = questions.find(q => q.id === questionId);
-            if (!question) return;
-            
             const options = button.parentElement.querySelectorAll('.option-btn');
-            
-            // Disable all buttons
-            options.forEach(btn => {
-                btn.disabled = true;
-            });
-            
-            // Mark selected answer
+            options.forEach(btn => btn.disabled = true);
             button.classList.add('selected');
+
+            const reward = Math.round(getEarningsPerQuestion(userData.level));
+            const currentBal = Number(userData.balance) || 0;
+            const currentEarned = Number(userData.totalEarned) || 0;
             
-            // Calculate reward based on user level
-            const reward = getEarningsPerQuestion(userData.level);
-            
-            // Update user balance - ALL ANSWERS ARE CORRECT
-            const newBalance = userData.balance + reward;
-            const newTotalEarned = userData.totalEarned + reward;
-            const newDailyQuestionsCompleted = userData.dailyQuestionsCompleted + 1;
-            const newTasksCompleted = userData.tasksCompleted + 1;
-            
+            const newBalance = currentBal + reward;
+            const newTotalEarned = currentEarned + reward;
+            const newDailyQuestionsCompleted = (userData.dailyQuestionsCompleted || 0) + 1;
+
             try {
-                // Update user data in Firestore
                 await db.collection('users').doc(currentUser.uid).update({
                     balance: newBalance,
                     totalEarned: newTotalEarned,
                     dailyQuestionsCompleted: newDailyQuestionsCompleted,
-                    tasksCompleted: newTasksCompleted
+                    tasksCompleted: (userData.tasksCompleted || 0) + 1
                 });
                 
-                // Add transaction record
-                const transactionData = {
+                await db.collection('transactions').add({
                     userId: currentUser.uid,
                     type: 'task',
                     amount: reward,
-                    description: 'Completed question',
+                    description: 'Answered Daily Question',
                     date: new Date().toISOString(),
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                await db.collection('transactions').add(transactionData);
+                });
                 
-                // Update local userData
                 userData.balance = newBalance;
                 userData.totalEarned = newTotalEarned;
                 userData.dailyQuestionsCompleted = newDailyQuestionsCompleted;
-                userData.tasksCompleted = newTasksCompleted;
-                
-                // Show success message
+
                 setTimeout(() => {
-                    alert(`✅ Answer submitted! You earned ${reward} UGX!`);
-                    loadDailyTasks(); // Reload tasks
-                    updateUIForLoggedInUser(); // Update balance display
-                }, 500);
-                
-            } catch (error) {
-                console.error('Error updating user data:', error);
-                alert('Error submitting answer. Please try again.');
-            }
+                    alert(`✅ Answer submitted! Earned ${reward} UGX.`);
+                    loadDailyTasks();
+                    updateUIForLoggedInUser();
+                }, 300);
+
+            } catch (error) { alert('Error recording answer.'); }
         }
 
         function getEarningsPerQuestion(level) {
             switch(level) {
-                case 'intern': return 500; // 1000 UGX / 2 questions
-                case 'S1': return 347; // 1388 UGX / 4 questions
-                case 'S2': return 602; // 4816 UGX / 8 questions
-                case 'S3': return 809; // 9708 UGX / 12 questions
-                case 'S4': return 1213; // 19416 UGX / 16 questions
+                case 'intern': return 1000 / 2;
+                case 'S1': case 'Senior 1': return 2000 / 4;
+                case 'S2': case 'Senior 2': return 4000 / 6;
+                case 'S3': case 'Senior 3': return 8000 / 8;
+                case 'S4': case 'Senior 4': return 16000 / 12;
                 default: return 500;
             }
         }
 
-        async function processWithdrawal() {
-            if (!currentUser || !userData) {
-                alert('Please login first!');
-                return;
+        function getDailyEarningsTarget(level) {
+            switch(level) {
+                case 'intern': return 1000;
+                case 'S1': case 'Senior 1': return 2000;
+                case 'S2': case 'Senior 2': return 4000;
+                case 'S3': case 'Senior 3': return 8000;
+                case 'S4': case 'Senior 4': return 16000;
+                default: return 1000;
             }
-            
+        }
+
+        async function processWithdrawal() {
+            if (!currentUser || !userData) return;
             const amount = parseInt(document.getElementById('withdrawAmount').value);
             const method = document.getElementById('withdrawMethod').value;
             const phone = document.getElementById('withdrawPhone').value;
-            
+
             if (!amount || amount < 50000 || amount > 500000) {
-                alert('Withdrawal amount must be between 50,000 UGX and 500,000 UGX');
+                alert('Amount must be between 50,000 UGX and 500,000 UGX');
                 return;
             }
-            
-            if (amount > userData.balance) {
-                alert('Insufficient balance!');
-                return;
-            }
-            
-            if (!phone || phone.length < 10) {
-                alert('Please enter a valid phone number');
-                return;
-            }
-            
-            // Check withdrawal hours (9 AM - 10 PM)
-            const now = new Date();
-            const currentHour = now.getHours();
-            if (currentHour < 9 || currentHour >= 22) {
-                alert('Withdrawals are only available between 9:00 AM and 10:00 PM');
-                return;
-            }
-            
+            const currentBal = Number(userData.balance) || 0;
+            if (amount > currentBal) { alert('Insufficient balance!'); return; }
+
             const tax = Math.floor(amount * (1000 / 5000));
             const netAmount = amount - tax;
-            const newBalance = userData.balance - amount;
-            
+
             try {
-                // Update user balance in Firestore
-                await db.collection('users').doc(currentUser.uid).update({
-                    balance: newBalance
-                });
-                
-                // Add withdrawal record
-                const withdrawalData = {
+                await db.collection('users').doc(currentUser.uid).update({ balance: currentBal - amount });
+                await db.collection('withdrawals').add({
                     userId: currentUser.uid,
                     userName: userData.name,
-                    userPhone: userData.phone,
-                    type: 'withdrawal',
                     amount: amount,
-                    method: method,
-                    phone: phone,
                     tax: tax,
                     netAmount: netAmount,
+                    method: method,
+                    phone: phone,
                     status: 'pending',
-                    date: new Date().toISOString(),
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                await db.collection('withdrawals').add(withdrawalData);
-                
-                // Add transaction record
-                const transactionData = {
-                    userId: currentUser.uid,
-                    type: 'withdrawal',
-                    amount: -amount,
-                    description: `Withdrawal to ${method} (${phone}) - Tax: ${tax} UGX`,
-                    date: new Date().toISOString(),
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                await db.collection('transactions').add(transactionData);
-                
-                // Update local userData
-                userData.balance = newBalance;
-                
-                alert(`Withdrawal request of ${amount.toLocaleString()} UGX submitted! 💸\nTax: ${tax} UGX\nYou'll receive: ${netAmount.toLocaleString()} UGX\nProcessing time: 24 hours`);
+                    date: new Date().toISOString()
+                });
+                userData.balance = currentBal - amount;
+                alert('Withdrawal request submitted!');
                 updateUIForLoggedInUser();
-                loadTransactionHistory();
-                
-                document.getElementById('withdrawAmount').value = '';
-                document.getElementById('withdrawPhone').value = '';
-                
-            } catch (error) {
-                console.error('Error processing withdrawal:', error);
-                alert('Error processing withdrawal. Please try again.');
-            }
+            } catch (error) { alert('Error processing withdrawal.'); }
         }
 
         async function loadTransactionHistory() {
             if (!currentUser) return;
-            
             const transactionList = document.getElementById('transactionList');
-            
             try {
-                const transactionsSnapshot = await db.collection('transactions')
+                const snapshot = await db.collection('transactions')
                     .where('userId', '==', currentUser.uid)
                     .orderBy('timestamp', 'desc')
                     .limit(10)
                     .get();
-                
-                if (transactionsSnapshot.empty) {
-                    transactionList.innerHTML = '<p class="text-center">No transactions yet</p>';
+
+                if (snapshot.empty) {
+                    transactionList.innerHTML = '<p class="text-center" style="color: var(--text-muted); font-size: 0.8rem;">No transactions yet</p>';
                     return;
                 }
-                
-                transactionList.innerHTML = transactionsSnapshot.docs.map(doc => {
-                    const transaction = doc.data();
+
+                transactionList.innerHTML = snapshot.docs.map(doc => {
+                    const t = doc.data();
                     return `
                         <div class="transaction-item">
                             <div>
-                                <div style="font-weight: bold;">${transaction.description}</div>
-                                <div style="font-size: 0.8rem; color: #666;">${new Date(transaction.date).toLocaleDateString()}</div>
+                                <div style="font-weight: bold; color: var(--white);">${t.description}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">${new Date(t.date).toLocaleDateString()}</div>
                             </div>
-                            <div class="transaction-amount ${transaction.amount > 0 ? 'positive' : 'negative'}">
-                                ${transaction.amount > 0 ? '+' : ''}${transaction.amount.toLocaleString()} UGX
+                            <div class="transaction-amount ${t.amount > 0 ? 'positive' : 'negative'}">
+                                ${t.amount > 0 ? '+' : ''}${t.amount.toLocaleString()} UGX
                             </div>
                         </div>
                     `;
                 }).join('');
-            } catch (error) {
-                console.error('Error loading transactions:', error);
-                transactionList.innerHTML = '<p class="text-center">Error loading transactions</p>';
-            }
+            } catch (error) { console.error(error); }
         }
 
         function openSupportTelegram() {
@@ -2396,84 +2202,51 @@
         }
 
         async function sendSupportMessage() {
-            if (!currentUser || !userData) {
-                alert('Please login first!');
-                return;
-            }
-            
-            const name = document.getElementById('supportName').value || userData.name;
-            const phone = document.getElementById('supportPhone').value || userData.phone;
             const message = document.getElementById('supportMessage').value;
-            
-            if (!message) {
-                alert('Please enter your message');
-                return;
-            }
-            
+            if (!message) return;
             try {
-                const supportData = {
-                    userId: currentUser.uid,
-                    userName: name,
-                    userPhone: phone,
+                await db.collection('supportTickets').add({
+                    userId: currentUser?.uid || 'guest',
                     message: message,
-                    status: 'new',
-                    date: new Date().toISOString(),
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                
-                await db.collection('supportTickets').add(supportData);
-                
-                alert('Support message sent! We will respond within 2 hours. ✨');
-                document.getElementById('supportName').value = '';
-                document.getElementById('supportPhone').value = '';
+                    date: new Date().toISOString()
+                });
+                alert('Message sent to support team.');
                 document.getElementById('supportMessage').value = '';
-            } catch (error) {
-                console.error('Error sending support message:', error);
-                alert('Error sending message. Please try again.');
-            }
+            } catch (e) { alert('Error sending message.'); }
         }
 
         function updateCountdownTimer() {
             if (!userData || userData.level !== 'intern') return;
-            
             const startDate = new Date(userData.internStartDate);
             const endDate = new Date(startDate);
             endDate.setDate(startDate.getDate() + 2);
             
-            const now = new Date();
-            const diff = endDate - now;
-            
+            const diff = endDate - new Date();
             if (diff <= 0) {
-                document.getElementById('countdownDisplay').textContent = 'Intern period expired!';
+                document.getElementById('countdownDisplay').textContent = 'Intern Period Expired';
                 return;
             }
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
-            document.getElementById('countdownDisplay').textContent = 
-                `${days} days ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('countdownDisplay').textContent = `${hours}h ${minutes}m ${seconds}s`;
         }
 
         function logout() {
+            if (referralUnsubscribe) referralUnsubscribe();
             auth.signOut().then(() => {
                 currentUser = null;
                 userData = null;
-                alert('Logged out successfully! 👋');
                 showSection('dashboard');
-            }).catch((error) => {
-                console.error('Logout error:', error);
             });
         }
 
-        function generateReferralCode() {
-            return Math.random().toString(36).substring(2, 8).toUpperCase();
-        }
+        function generateReferralCode() { return Math.random().toString(36).substring(2, 8).toUpperCase(); }
 
         function generateQuestions() {
-            const questions = [
+            return [
                 { id: '1', question: '2 + 2 = ?', options: ['4', '5'] },
                 { id: '2', question: 'Is Uganda a landlocked country?', options: ['Yes', 'No'] },
                 { id: '3', question: 'How many countries are in Africa?', options: ['54', '48'] },
@@ -2483,100 +2256,8 @@
                 { id: '7', question: 'Which is larger?', options: ['Elephant', 'Mouse'] },
                 { id: '8', question: 'How many days in a week?', options: ['7', '5'] },
                 { id: '9', question: 'What color is the sky?', options: ['Blue', 'Green'] },
-                { id: '10', question: 'Is the sun hot?', options: ['Yes', 'No'] },
-                { id: '11', question: '5 × 3 = ?', options: ['15', '8'] },
-                { id: '12', question: 'Which is a vegetable?', options: ['Broccoli', 'Orange'] },
-                { id: '13', question: 'How many hours in a day?', options: ['24', '12'] },
-                { id: '14', question: 'Is ice cold?', options: ['Yes', 'No'] },
-                { id: '15', question: 'What is 100 - 25?', options: ['75', '125'] },
-                { id: '16', question: 'Which is a bird?', options: ['Eagle', 'Dog'] },
-                { id: '17', question: 'How many months in a year?', options: ['12', '10'] },
-                { id: '18', question: 'Is fire hot?', options: ['Yes', 'No'] },
-                { id: '19', question: '8 ÷ 4 = ?', options: ['2', '4'] },
-                { id: '20', question: 'Which is a planet?', options: ['Earth', 'Sun'] },
-                { id: '21', question: 'What is 3 × 7?', options: ['21', '10'] },
-                { id: '22', question: 'Is snow white?', options: ['Yes', 'No'] },
-                { id: '23', question: 'Which is a reptile?', options: ['Snake', 'Cat'] },
-                { id: '24', question: 'How many minutes in an hour?', options: ['60', '100'] },
-                { id: '25', question: 'What is 50 + 50?', options: ['100', '0'] },
-                { id: '26', question: 'Is grass green?', options: ['Yes', 'No'] },
-                { id: '27', question: 'Which is a fish?', options: ['Salmon', 'Lion'] },
-                { id: '28', question: 'How many seconds in a minute?', options: ['60', '100'] },
-                { id: '29', question: 'What is 12 × 2?', options: ['24', '10'] },
-                { id: '30', question: 'Is chocolate sweet?', options: ['Yes', 'No'] },
-                { id: '31', question: 'Which is a mammal?', options: ['Human', 'Snake'] },
-                { id: '32', question: 'How many weeks in a month?', options: ['4', '7'] },
-                { id: '33', question: 'What is 100 ÷ 10?', options: ['10', '1'] },
-                { id: '34', question: 'Is lemon sour?', options: ['Yes', 'No'] },
-                { id: '35', question: 'Which is an insect?', options: ['Ant', 'Fish'] },
-                { id: '36', question: 'How many years in a decade?', options: ['10', '100'] },
-                { id: '37', question: 'What is 15 + 25?', options: ['40', '50'] },
-                { id: '38', question: 'Is paper flammable?', options: ['Yes', 'No'] },
-                { id: '39', question: 'Which is a tree?', options: ['Oak', 'Rose'] },
-                { id: '40', question: 'How many sides in a triangle?', options: ['3', '4'] },
-                { id: '41', question: 'What is 9 × 9?', options: ['81', '18'] },
-                { id: '42', question: 'Is gold a metal?', options: ['Yes', 'No'] },
-                { id: '43', question: 'Which is a continent?', options: ['Africa', 'Pacific'] },
-                { id: '44', question: 'How many legs on a spider?', options: ['8', '6'] },
-                { id: '45', question: 'What is 7 × 8?', options: ['56', '15'] },
-                { id: '46', question: 'Is sugar sweet?', options: ['Yes', 'No'] },
-                { id: '47', question: 'Which is an ocean?', options: ['Pacific', 'Sahara'] },
-                { id: '48', question: 'How many players in a soccer team?', options: ['11', '5'] },
-                { id: '49', question: 'What is 64 ÷ 8?', options: ['8', '7'] },
-                { id: '50', question: 'Is the moon a star?', options: ['No', 'Yes'] },
-                { id: '51', question: 'Which is a color?', options: ['Red', 'Square'] },
-                { id: '52', question: 'How many letters in the alphabet?', options: ['26', '24'] },
-                { id: '53', question: 'What is 25 × 4?', options: ['100', '29'] },
-                { id: '54', question: 'Is air invisible?', options: ['Yes', 'No'] },
-                { id: '55', question: 'Which is a sport?', options: ['Soccer', 'Eating'] },
-                { id: '56', question: 'How many hours in 2 days?', options: ['48', '24'] },
-                { id: '57', question: 'What is 99 - 9?', options: ['90', '108'] },
-                { id: '58', question: 'Is wood solid?', options: ['Yes', 'No'] },
-                { id: '59', question: 'Which is a vehicle?', options: ['Car', 'House'] },
-                { id: '60', question: 'How many minutes in 2 hours?', options: ['120', '60'] },
-                { id: '61', question: 'What is 12 + 13?', options: ['25', '1'] },
-                { id: '62', question: 'Is glass transparent?', options: ['Yes', 'No'] },
-                { id: '63', question: 'Which is a musical instrument?', options: ['Guitar', 'Book'] },
-                { id: '64', question: 'How many days in February (non-leap)?', options: ['28', '30'] },
-                { id: '65', question: 'What is 6 × 7?', options: ['42', '13'] },
-                { id: '66', question: 'Is salt salty?', options: ['Yes', 'No'] },
-                { id: '67', question: 'Which is a country?', options: ['Kenya', 'Mars'] },
-                { id: '68', question: 'How many wheels on a car?', options: ['4', '2'] },
-                { id: '69', question: 'What is 81 ÷ 9?', options: ['9', '8'] },
-                { id: '70', question: 'Is fire alive?', options: ['No', 'Yes'] },
-                { id: '71', question: 'Which is a season?', options: ['Winter', 'Monday'] },
-                { id: '72', question: 'How many quarters in a dollar?', options: ['4', '10'] },
-                { id: '73', question: 'What is 14 + 16?', options: ['30', '2'] },
-                { id: '74', question: 'Is water a liquid?', options: ['Yes', 'No'] },
-                { id: '75', question: 'Which is a city?', options: ['Kampala', 'Africa'] },
-                { id: '76', question: 'How many sides in a square?', options: ['4', '3'] },
-                { id: '77', question: 'What is 5 × 12?', options: ['60', '17'] },
-                { id: '78', question: 'Is rock hard?', options: ['Yes', 'No'] },
-                { id: '79', question: 'Which is a language?', options: ['English', 'Running'] },
-                { id: '80', question: 'How many cents in a dollar?', options: ['100', '10'] },
-                { id: '81', question: 'What is 100 ÷ 4?', options: ['25', '96'] },
-                { id: '82', question: 'Is light fast?', options: ['Yes', 'No'] },
-                { id: '83', question: 'Which is a flower?', options: ['Rose', 'Stone'] },
-                { id: '84', question: 'How many years in a century?', options: ['100', '1000'] },
-                { id: '85', question: 'What is 8 × 6?', options: ['48', '14'] },
-                { id: '86', question: 'Is oil liquid?', options: ['Yes', 'No'] },
-                { id: '87', question: 'Which is a job?', options: ['Teacher', 'Tree'] },
-                { id: '88', question: 'How many minutes in 3 hours?', options: ['180', '120'] },
-                { id: '89', question: 'What is 45 ÷ 5?', options: ['9', '40'] },
-                { id: '90', question: 'Is sand solid?', options: ['Yes', 'No'] },
-                { id: '91', question: 'Which is a river?', options: ['Nile', 'Himalayas'] },
-                { id: '92', question: 'How many days in a year?', options: ['365', '300'] },
-                { id: '93', question: 'What is 7 × 9?', options: ['63', '16'] },
-                { id: '94', question: 'Is steam gas?', options: ['Yes', 'No'] },
-                { id: '95', question: 'Which is a building?', options: ['School', 'Car'] },
-                { id: '96', question: 'How many seconds in 2 minutes?', options: ['120', '60'] },
-                { id: '97', version: 'What is 11 × 11?', options: ['121', '22'] },
-                { id: '98', question: 'Is metal conductive?', options: ['Yes', 'No'] },
-                { id: '99', question: 'Which is a mountain?', options: ['Everest', 'Amazon'] },
-                { id: '100', question: 'How many hours in 3 days?', options: ['72', '24'] }
+                { id: '10', question: 'Is the sun hot?', options: ['Yes', 'No'] }
             ];
-            
-            return questions;
         }
     </script>
 </body>

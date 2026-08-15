@@ -3,8 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beam Earn – Financial Dashboard</title>
+    <title>Beam Earn – Financial Dashboard & Daily Earning Platform</title>
     
+    <!-- Primary Search Engine Optimization (SEO) -->
+    <meta name="description" content="Beam Earn is a digital daily earning platform providing financial dashboards, simple questionnaire tasks, and tier-based yield investments.">
+    <meta name="keywords" content="Beam Earn, daily earning, financial dashboard, investment yield, online rewards Uganda, mobile money tasks">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://beam-earn.firebaseapp.com/">
+    
+    <!-- Open Graph / Facebook / WhatsApp SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://beam-earn.firebaseapp.com/">
+    <meta property="og:title" content="Beam Earn – Financial Dashboard & Daily Earning Platform">
+    <meta property="og:description" content="Access simple daily questions, track portfolio yield, and join financial reward tiers on Beam Earn.">
+    <meta property="og:image" content="https://beam-earn.firebaseapp.com/icons/icon-192x192.png">
+
+    <!-- Twitter Card SEO -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://beam-earn.firebaseapp.com/">
+    <meta name="twitter:title" content="Beam Earn – Financial Dashboard">
+    <meta name="twitter:description" content="Access simple daily questions, track portfolio yield, and join financial reward tiers on Beam Earn.">
+    <meta name="twitter:image" content="https://beam-earn.firebaseapp.com/icons/icon-192x192.png">
+
+    <!-- Structured Data (JSON-LD for Google Rich Results) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Beam Earn",
+      "url": "https://beam-earn.firebaseapp.com/",
+      "description": "Financial dashboard and online task platform for daily rewards and investments.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "UGX"
+      }
+    }
+    </script>
+
     <link rel="manifest" href="manifest.json">
     
     <meta name="theme-color" content="#2563EB">
@@ -119,7 +157,6 @@
             padding-bottom: calc(80px + env(safe-area-inset-bottom));
         }
 
-        /* THINNER CARD LAYOUTS */
         .card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -262,7 +299,6 @@
             color: var(--text-muted);
         }
 
-        /* INVESTMENT PORTFOLIOS */
         .level-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -548,7 +584,6 @@
             font-weight: bold;
         }
 
-        /* RE-STYLED CONTACT & SUPPORT SECTION */
         .support-section {
             background: linear-gradient(135deg, #0d1527 0%, #172238 100%);
             color: white;
@@ -573,7 +608,6 @@
             border: 1px solid rgba(255,255,255,0.08);
         }
 
-        /* RE-MATCHED DAILY BONUS SECTION STYLE */
         .daily-bonus-section {
             background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
             border: 1px solid rgba(99, 102, 241, 0.3);
@@ -710,7 +744,6 @@
             justify-content: center;
         }
 
-        /* COMPACT QUESTION CARDS TO FIT 8 QUESTIONS */
         .question-card {
             background: var(--card-bg);
             border-radius: 10px;
@@ -999,7 +1032,7 @@
         <div class="nav">
             <div class="logo-container">
                 <div class="logo-icon">B</div>
-                <div class="logo-text">Beam Earn</div>
+                <h1 class="logo-text">Beam Earn</h1>
             </div>
             <div class="nav-auth">
                 <button class="btn btn-primary" id="loginBtn" style="padding: 6px 14px; width: auto; margin: 0; border-radius: 6px; font-size: 0.85rem;">Login</button>
@@ -1016,7 +1049,7 @@
         </section>
 
         <section id="dashboard">
-            <a href="https://whatsapp.com/channel/0029Vb8fvl0CnA7o8EohIs2x" target="_blank" class="whatsapp-banner">
+            <a href="https://whatsapp.com/channel/0029Vb8fvl0CnA7o8EohIs2x" target="_blank" class="whatsapp-banner" rel="noopener">
                 <div class="whatsapp-content">
                     <div class="whatsapp-icon">💬</div>
                     <div class="whatsapp-text">Join our WhatsApp Channel</div>
@@ -1033,7 +1066,6 @@
                 <p style="margin-top: 0.6rem; color: var(--text-muted); font-size: 0.8rem;">Already have an account? <a href="#" id="loginDashboardLink" style="color: var(--primary); font-weight: bold; text-decoration: none;">Login here</a></p>
             </div>
 
-            <!-- RESTYLED MATCHING BLUE/INDIGO DAILY BONUS CARD -->
             <div id="dailyBonusSection" class="daily-bonus-section hidden">
                 <div style="position: relative; z-index: 2;">
                     <h3 style="font-size: 1.05rem;">🎁 Daily Login Bonus</h3>
@@ -1047,7 +1079,7 @@
             </div>
 
             <div class="card text-center" style="padding: 0.65rem 0.85rem;">
-                <h3 style="color: var(--white); margin-bottom: 0.2rem; font-size: 1rem;">Welcome to Beam Earn! 💫</h3>
+                <h2 style="color: var(--white); margin-bottom: 0.2rem; font-size: 1rem;">Welcome to Beam Earn! 💫</h2>
                 <p style="font-size: 0.8rem; color: var(--text-muted);">Start earning real money today - No experience needed!</p>
             </div>
 
@@ -1130,7 +1162,6 @@
             </div>
         </section>
 
-        <!-- FINANCIAL & PROFESSIONAL INVESTMENT TIERS -->
         <section id="vip" class="hidden">
             <div class="card" style="background: transparent; border: none; padding: 0;">
                 <div style="text-align: center; margin-bottom: 1rem;">
@@ -1139,7 +1170,6 @@
                 </div>
 
                 <div class="level-grid">
-                    <!-- INTERN -->
                     <div class="level-card">
                         <div class="level-header">
                             <div class="level-title-group">
@@ -1173,7 +1203,6 @@
                         <button class="btn btn-success" id="activateInternBtn" style="border-radius: 8px; font-weight: 700;">Start Free Trial</button>
                     </div>
 
-                    <!-- SENIOR 1 -->
                     <div class="level-card premium">
                         <div class="level-header">
                             <div class="level-title-group">
@@ -1207,7 +1236,6 @@
                         <button class="btn btn-primary" id="upgradeS1Btn" style="border-radius: 8px; font-weight: 700;">Upgrade to S1</button>
                     </div>
 
-                    <!-- SENIOR 2 -->
                     <div class="level-card premium">
                         <div class="level-header">
                             <div class="level-title-group">
@@ -1241,7 +1269,6 @@
                         <button class="btn btn-primary" id="upgradeS2Btn" style="border-radius: 8px; font-weight: 700;">Upgrade to S2</button>
                     </div>
 
-                    <!-- SENIOR 3 -->
                     <div class="level-card premium">
                         <div class="level-header">
                             <div class="level-title-group">
@@ -1275,7 +1302,6 @@
                         <button class="btn btn-warning" id="upgradeS3Btn" style="border-radius: 8px; font-weight: 700;">Upgrade to S3</button>
                     </div>
 
-                    <!-- SENIOR 4 -->
                     <div class="level-card premium">
                         <div class="level-header">
                             <div class="level-title-group">
@@ -1309,7 +1335,6 @@
                         <button class="btn btn-primary" id="upgradeS4Btn" style="border-radius: 8px; font-weight: 700; background: linear-gradient(135deg, #7c3aed, #2563eb);">Upgrade to S4</button>
                     </div>
 
-                    <!-- SENIOR 5 -->
                     <div class="level-card premium">
                         <div class="level-header">
                             <div class="level-title-group">
@@ -1346,7 +1371,6 @@
             </div>
         </section>
 
-        <!-- THINNER QUESTIONS SECTION (COMPACT FIT FOR 8 QUESTIONS) -->
         <section id="tasks" class="hidden">
             <div class="card" style="padding: 0.75rem;">
                 <h3 style="color: var(--white); text-align: center; font-size: 1rem;">📋 Daily Questions</h3>
@@ -1383,7 +1407,7 @@
                         <input type="number" id="withdrawAmount" class="input" placeholder="Enter amount (50,000 - 500,000 UGX)" min="50000" max="500000">
                     </div>
                     <div class="input-group">
-                        <select id="withdrawMethod" class="input">
+                        <select id="withdrawMethod" class="input" aria-label="Select Withdrawal Method">
                             <option value="mtn">MTN Mobile Money</option>
                             <option value="airtel">Airtel Money</option>
                         </select>
@@ -1403,7 +1427,6 @@
             </div>
         </section>
 
-        <!-- IMPROVED PROFESSIONAL SUPPORT SECTION -->
         <section id="support" class="hidden">
             <div class="support-section">
                 <h3 style="font-size: 1.15rem; color: var(--white); margin-bottom: 0.2rem;">🛟 Need Help?</h3>
@@ -1436,7 +1459,6 @@
         </section>
     </main>
 
-    <!-- BOTTOM NAV WITH INVEST REPLACING VIP STAR -->
     <nav class="bottom-nav">
         <a class="nav-item active" id="navDashboard">
             <div class="nav-item-icon">🏠</div>
@@ -1792,7 +1814,6 @@
                     if (userDoc.exists) {
                         userData = userDoc.data();
                         
-                        // INITIALIZE DYNAMIC REAL-TIME REFERRAL COUNTER
                         setupReferralListener(userData.referralCode);
                         updateUIForLoggedInUser();
                     }
@@ -1829,7 +1850,6 @@
             });
         }
 
-        /* FIXED REFERRAL COUNTING FUNCTION & PREVENT NaN BALANCES */
         function setupReferralListener(code) {
             if (!code) return;
             if (referralUnsubscribe) referralUnsubscribe();
@@ -2012,7 +2032,6 @@
             }
         }
 
-        /* DAILY TASKS SETUP WITH STREAMLINED CARDS */
         async function loadDailyTasks() {
             if (!currentUser || !userData) {
                 alert('Please login first!');
